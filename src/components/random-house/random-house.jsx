@@ -14,9 +14,9 @@ throneService = new ThroneService();
     error: false,
   }
 
-  constructor() {
-    super();
+  componentDidMount() {
     this.updateHouse();
+    setInterval(this.updateHouse, 3000);
   }
 
   onHouseLoaded = (house) => {
@@ -30,11 +30,11 @@ onError = () => {
   this.setState({
     error: true,
     loading: false,
-  })
+  });
 }
 
-updateHouse() {
-  const id = Math.floor(Math.random() * (10 - 1)) + 1;;
+updateHouse = () => {
+  const id = Math.floor(Math.random() * (10 - 1)) + 1;
   this.throneService
     .getHouse(id)
     .then(this.onHouseLoaded)

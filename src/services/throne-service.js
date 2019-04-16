@@ -13,8 +13,7 @@ export default class ThroneService {
 
   async getAllPeople() {
     const res = await this.getResource('/characters/');
-    console.log(res, 'getAllPeople');
-    return res.results.map(this._transformPerson);
+    return res.map(this._transformPerson);
   }
 
   async getPerson(id) {
@@ -32,29 +31,25 @@ export default class ThroneService {
     return this._transformHouse(house);
   }
 
-  _extractId(item) {
+  _extractId = (item) => {
     const idRegExp = /\/([0-9]*)$/;
     return item.url.match(idRegExp)[1];
   }
 
-  _transformHouse(house) {
-    return {
-      id: this._extractId(house),
-      name: house.name,
-      region: house.region,
-      coatOfArms: house.coatOfArms === '' ? 'no' : house.coatOfArms,
-      seats: house.seats[0] === '' ? 'no' : house.seats,
+  _transformHouse = house => ({
+    id: this._extractId(house),
+    name: house.name,
+    region: house.region,
+    coatOfArms: house.coatOfArms === '' ? 'no' : house.coatOfArms,
+    seats: house.seats[0] === '' ? 'no' : house.seats,
+  })
 
-    };
-  }
-
-  _transformPerson(person) {
-    return {
-      id: this._extractId(person),
-      name: person.name,
-      gender: person.gender,
-      born: person.born,
-      culture: person.culture,
-    };
-  }
+  _transformPerson = person => ({
+    id: this._extractId(person),
+    name: person.name,
+    aliases: person.aliases,
+    gender: person.gender,
+    born: person.born,
+    culture: person.culture,
+  })
 }
