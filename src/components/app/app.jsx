@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
+import ThroneService from 'services/throne-service';
 import Header from 'components/header';
 import RandomHouse from 'components/random-house';
+import PeoplePage from 'components/people-page';
 import ItemList from 'components/item-list';
 import PersonDetails from 'components/person-details';
 import 'components/app/app.css';
 
 export default class App extends Component {
-  state ={
+  throneService = new ThroneService();
+
+  state = {
     showRandomHouse: true,
-    selectedPerson: null,
   }
 
   toggleRandomHouse = () => {
@@ -17,14 +20,8 @@ export default class App extends Component {
     }));
   };
 
-  onPersonSelected = (id) => {
-    this.setState({
-      selectedPerson: id,
-    });
-  }
-
   render() {
-    const { showRandomHouse, selectedPerson } = this.state;
+    const { showRandomHouse } = this.state;
     const randomHouse = showRandomHouse ? <RandomHouse /> : null;
     return (
       <div className="container">
@@ -37,12 +34,17 @@ export default class App extends Component {
         >
           Toggle Random Planet
         </button>
+        <PeoplePage />
         <div className="row mb2">
           <div className="col-md-6">
-            <ItemList onItemSelected={this.onPersonSelected} />
+            <ItemList
+              onItemSelected={this.onPersonSelected}
+              getData={this.throneService.getAllBooks}
+              renderItem={item => item.name || item.aliases[0]}
+            />
           </div>
           <div className="col-md-6">
-            <PersonDetails personId={selectedPerson} />
+            <PersonDetails personId={this.state.selectedPerson} />
           </div>
         </div>
       </div>

@@ -1,46 +1,48 @@
 import React, { Component } from 'react';
-import ThroneService from 'services/throne-service';
 import Spinner from 'components/spinner';
 
 import 'components/item-list/item-list.css';
 
 export default class ItemList extends Component {
-  trhroneService = new ThroneService();
-
   state = {
-    peopleList: null,
+    itemList: null,
   };
 
   componentDidMount() {
-    this.trhroneService
-      .getAllPeople()
-      .then((peopleList) => {
+    const { getData } = this.props;
+
+    getData()
+      .then((itemList) => {
         this.setState({
-          peopleList,
+          itemList,
         });
       });
   }
 
   renderItems(arr) {
-    return arr.map(({ id, name, aliases }) => (
+    return arr.map((item) => {
+      const { id } = item;
+      const lable = this.props.renderItem(item);
+      return (
       <li
         className="list-group-item"
         key={id}
         onClick={() => this.props.onItemSelected(id)}
       >
-        {name || aliases[0]}
+        {lable}
       </li>
-    ));
+    )
+    });
   }
 
   render() {
-    const { peopleList } = this.state;
+    const { itemList } = this.state;
 
-    if (!peopleList) {
+    if (!itemList) {
       return <Spinner />;
     }
 
-    const items = this.renderItems(peopleList);
+    const items = this.renderItems(itemList);
     return (
       <ul className="item-list list-group">
         {items}

@@ -1,7 +1,7 @@
 export default class ThroneService {
   _apiBase = 'https://anapioficeandfire.com/api';
 
-  async getResource(url) {
+  getResource = async (url) => {
     const res = await fetch(`${this._apiBase}${url}`);
 
     if (!res.ok) {
@@ -10,23 +10,32 @@ export default class ThroneService {
     const result = await res.json();
     return result;
   }
+  getAllBooks = async () => {
+    const res = await this.getResource('/books/');
+    return res.map(this._transformPerson);
+  }
 
-  async getAllPeople() {
+  getBook = async (id) => {
+    const res = await this.getResource(`/books/${id}/`);
+    return res.map(this._transformBook);
+  }
+
+  getAllPeople = async () => {
     const res = await this.getResource('/characters/');
     return res.map(this._transformPerson);
   }
 
-  async getPerson(id) {
+  getPerson = async (id) => {
     const person = await this.getResource(`/characters/${id}/`);
     return this._transformPerson(person);
   }
 
-  async getAllHouses() {
-    const res = await this.getResource('/houses/');
-    return res.map(house => this._transformHouse(house));
-  }
+   getAllHouses = async () => {
+     const res = await this.getResource('/houses/');
+     return res.map(house => this._transformHouse(house));
+   }
 
-  async getHouse(id) {
+  getHouse = async (id) => {
     const house = await this.getResource(`/houses/${id}/`);
     return this._transformHouse(house);
   }
@@ -35,6 +44,18 @@ export default class ThroneService {
     const idRegExp = /\/([0-9]*)$/;
     return item.url.match(idRegExp)[1];
   }
+
+  _transformBook = book => ({
+    name: book.name,
+    isbn: book.isbn,
+    id: this._extractId(book),
+    authors: book.authors[0],
+    numberOfPages: book.numberOfPages,
+    publisher: book.publisher,
+    country: book.country,
+    mediaType: book.mediaType,
+    released: book.released,
+  })
 
   _transformHouse = house => ({
     id: this._extractId(house),
@@ -51,5 +72,6 @@ export default class ThroneService {
     gender: person.gender,
     born: person.born,
     culture: person.culture,
+    playedBy: person.playedBy,
   })
 }

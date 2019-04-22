@@ -7,7 +7,7 @@ const Header = () => {
     <div className="header d-flex">
       <h3>
         <a href="#">
-          Star DB
+          Game of thrones
         </a>
       </h3>
       <ul className="d-flex">
@@ -15,11 +15,12 @@ const Header = () => {
           <a href="#">People</a>
         </li>
         <li>
-          <a href="#">Planets</a>
+          <a href="#">Houses</a>
         </li>
         <li>
-          <a href="#">Starships</a>
+          <a href="#">Books</a>
         </li>
+
       </ul>
     </div>
   );
