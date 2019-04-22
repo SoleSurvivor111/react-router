@@ -40,8 +40,9 @@ export default class App extends Component {
             <ItemList
               onItemSelected={this.onPersonSelected}
               getData={this.throneService.getAllBooks}
-              renderItem={item => item.name || item.aliases[0]}
-            />
+            >
+              {i => `${i.name || i.aliases[0]} - (${i.numberOfPages} pages, ${i.publisher})`}
+            </ItemList>
           </div>
           <div className="col-md-6">
             <PersonDetails personId={this.state.selectedPerson} />

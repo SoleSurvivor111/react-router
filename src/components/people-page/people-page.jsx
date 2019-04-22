@@ -4,12 +4,24 @@ import PersonDetails from 'components/person-details';
 import ErrorIndicator from 'components/error-indicator';
 import ThroneService from 'services/throne-service';
 import 'components/people-page/people-page.css';
+import ErrorBoundry from 'components/error-boundry';
+
+const Row = ({ left, right }) => (
+  <div className="row mb2">
+    <div className="col-md-6">
+      {left}
+    </div>
+    <div className="col-md-6">
+      {right}
+    </div>
+  </div>
+);
 
 export default class PeoplePage extends Component {
   throneService = new ThroneService();
+
   state = {
     selectedPerson: null,
-    hasError: false,
   }
 
   onPersonSelected = (id) => {
@@ -18,29 +30,24 @@ export default class PeoplePage extends Component {
     });
   }
 
-  componentDidCatch() {
-    this.setState({
-      hasError: true,
-    });
-  }
-
   render() {
-    if (this.state.hasError) {
+    const { selectedPerson, hasError } = this.state;
+    if (hasError) {
       return <ErrorIndicator />;
     }
+    const itemList = (
+      <ItemList
+        onItemSelected={this.onPersonSelected}
+        getData={this.throneService.getAllPeople}
+      >
+        {i => `${i.name || i.aliases[0]} (${i.gender})`}
+      </ItemList>
+    );
+    const personDetails = (<PersonDetails personId={selectedPerson} />);
     return (
-      <div className="row mb2">
-        <div className="col-md-6">
-          <ItemList
-            onItemSelected={this.onPersonSelected}
-            getData={this.throneService.getAllPeople}
-            renderItem={item => item.name || item.aliases[0]}
-          />
-        </div>
-        <div className="col-md-6">
-          <PersonDetails personId={this.state.selectedPerson} />
-        </div>
-      </div>
+      <ErrorBoundry>
+        <Row left={itemList} right={personDetails} />
+      </ErrorBoundry>
     );
   }
 }

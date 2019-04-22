@@ -12,7 +12,7 @@ export default class ThroneService {
   }
   getAllBooks = async () => {
     const res = await this.getResource('/books/');
-    return res.map(this._transformPerson);
+    return res.map(this._transformBook);
   }
 
   getBook = async (id) => {
