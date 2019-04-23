@@ -1,3 +1,5 @@
+import { imagesPerson } from 'images';
+
 export default class ThroneService {
   _apiBase = 'https://anapioficeandfire.com/api';
 
@@ -10,6 +12,7 @@ export default class ThroneService {
     const result = await res.json();
     return result;
   }
+
   getAllBooks = async () => {
     const res = await this.getResource('/books/');
     return res.map(this._transformBook);
@@ -39,6 +42,10 @@ export default class ThroneService {
     const house = await this.getResource(`/houses/${id}/`);
     return this._transformHouse(house);
   }
+
+  getPersonImage = ({ id }) => imagesPerson[id - 1]
+
+  // getBooksImage = ({ id }) => imagesBook[id - 1]
 
   _extractId = (item) => {
     const idRegExp = /\/([0-9]*)$/;

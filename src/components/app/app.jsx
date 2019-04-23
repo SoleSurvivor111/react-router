@@ -3,8 +3,8 @@ import ThroneService from 'services/throne-service';
 import Header from 'components/header';
 import RandomHouse from 'components/random-house';
 import PeoplePage from 'components/people-page';
-import ItemList from 'components/item-list';
-import PersonDetails from 'components/person-details';
+import ItemDetails from 'components/item-details';
+import Row from 'components/row';
 import 'components/app/app.css';
 
 export default class App extends Component {
@@ -23,6 +23,21 @@ export default class App extends Component {
   render() {
     const { showRandomHouse } = this.state;
     const randomHouse = showRandomHouse ? <RandomHouse /> : null;
+    const { getPerson, getBook } = this.throneService;
+    const personDetails = (
+      <ItemDetails
+        itemId={5}
+        getData={getPerson}
+        getImageUrl={this.throneService.getPersonImage}
+      />
+    );
+    const bookDetails = (
+      <ItemDetails
+        itemId={5}
+        getData={getPerson}
+        getImageUrl={this.throneService.getPersonImage}
+      />
+    );
     return (
       <div className="container">
         <Header />
@@ -35,19 +50,10 @@ export default class App extends Component {
           Toggle Random Planet
         </button>
         <PeoplePage />
-        <div className="row mb2">
-          <div className="col-md-6">
-            <ItemList
-              onItemSelected={this.onPersonSelected}
-              getData={this.throneService.getAllBooks}
-            >
-              {i => `${i.name || i.aliases[0]} - (${i.numberOfPages} pages, ${i.publisher})`}
-            </ItemList>
-          </div>
-          <div className="col-md-6">
-            <PersonDetails personId={this.state.selectedPerson} />
-          </div>
-        </div>
+        <Row
+          left={personDetails}
+          right={bookDetails}
+        />
       </div>
     );
   }

@@ -24,14 +24,14 @@ export default class ItemList extends Component {
       const { id } = item;
       const lable = this.props.children(item);
       return (
-      <li
-        className="list-group-item"
-        key={id}
-        onClick={() => this.props.onItemSelected(id)}
-      >
-        {lable}
-      </li>
-    )
+        <li
+          className="list-group-item"
+          key={id}
+          onClick={() => this.props.onItemSelected(id)}
+        >
+          {lable}
+        </li>
+      );
     });
   }
 

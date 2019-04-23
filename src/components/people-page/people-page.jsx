@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
 import ItemList from 'components/item-list';
-import PersonDetails from 'components/person-details';
+import PersonDetails from 'components/item-details';
 import ErrorIndicator from 'components/error-indicator';
 import ThroneService from 'services/throne-service';
 import 'components/people-page/people-page.css';
 import ErrorBoundry from 'components/error-boundry';
-
-const Row = ({ left, right }) => (
-  <div className="row mb2">
-    <div className="col-md-6">
-      {left}
-    </div>
-    <div className="col-md-6">
-      {right}
-    </div>
-  </div>
-);
+import Row from 'components/row';
 
 export default class PeoplePage extends Component {
   throneService = new ThroneService();
@@ -39,11 +29,18 @@ export default class PeoplePage extends Component {
       <ItemList
         onItemSelected={this.onPersonSelected}
         getData={this.throneService.getAllPeople}
+        getPersonImage={this.throneService.getPersonImage}
       >
         {i => `${i.name || i.aliases[0]} (${i.gender})`}
       </ItemList>
     );
-    const personDetails = (<PersonDetails personId={selectedPerson} />);
+    const personDetails = (
+      <PersonDetails
+        itemId={selectedPerson}
+        getData={this.throneService.getPerson}
+        getImageUrl={this.throneService.getPersonImage}
+      />
+    );
     return (
       <ErrorBoundry>
         <Row left={itemList} right={personDetails} />

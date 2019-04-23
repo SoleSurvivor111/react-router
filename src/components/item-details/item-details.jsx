@@ -1,35 +1,35 @@
 import React, { Component } from 'react';
 import ThroneService from 'services/throne-service';
-import 'components/person-details/person-details.css';
-import { imagesPerson } from 'images';
+import 'components/item-details/item-details.css';
 import Spinner from 'components/spinner';
 
 export default class PersonDetails extends Component {
   throneService = new ThroneService();
 
   state ={
-    person: null,
+    item: null,
     loading: true,
+    image: null,
   };
 
   componentDidMount() {
-    this.updatePerson();
+    this.updateItem();
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.personId !== prevProps.personId) {
-      this.updatePerson();
+    if (this.props.itemId !== prevProps.itemId) {
+      this.updateItem();
     }
   }
 
-  async getImage() {
-    const res = await this.getResource('/characters/');
-    return res.map(this._transformPerson);
-  }
+  updateItem() {
+    const {
+      itemId,
+      getData,
+      getImageUrl,
+    } = this.props;
 
-  updatePerson() {
-    const { personId } = this.props;
-    if (!personId) {
+    if (!itemId) {
       return;
     }
 
@@ -37,22 +37,29 @@ export default class PersonDetails extends Component {
       loading: true,
     });
 
-    this.throneService
-      .getPerson(personId)
-      .then((person) => {
+    getData(itemId)
+      .then((item) => {
         this.setState({
-          person,
+          item,
+          image: getImageUrl(item),
           loading: false,
         });
       });
   }
 
   render() {
-    const { person, loading } = this.state;
-    if (!person) {
+    const { item, loading, image } = this.state;
+    if (!item) {
       return <span>Select a person from the list</span>;
     }
-    const content = !loading ? <Content {...person} personId={this.props.personId} /> : null;
+    const content = !loading ? (
+      <Content
+        {...item}
+        itemId={this.props.itemId}
+        image={image}
+      />
+    )
+      : null;
     const spinner = loading ? <Spinner /> : null;
     return (
       <div className="person-details card">
@@ -64,13 +71,21 @@ export default class PersonDetails extends Component {
 }
 
 const Content = ({
-  id, name, aliases, gender, born, culture, playedBy, personId,
+  id,
+  name,
+  aliases,
+  gender,
+  born,
+  culture,
+  playedBy,
+  itemId,
+  image,
 }) => (
   <React.Fragment>
     <img
       alt={aliases[0] || name}
       className="person-image"
-      src={imagesPerson[personId - 1]}
+      src={image}
       title={aliases[0] || name}
     />
     <div className="card-body">
