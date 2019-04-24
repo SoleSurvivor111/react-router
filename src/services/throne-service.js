@@ -1,4 +1,4 @@
-import { imagesPerson } from 'images';
+import { imagesPerson, imagesHouse } from 'images';
 
 export default class ThroneService {
   _apiBase = 'https://anapioficeandfire.com/api';
@@ -45,6 +45,8 @@ export default class ThroneService {
 
   getPersonImage = ({ id }) => imagesPerson[id - 1]
 
+  getHouseImage = ({ id }) => imagesHouse[id - 1]
+
   // getBooksImage = ({ id }) => imagesBook[id - 1]
 
   _extractId = (item) => {
@@ -68,17 +70,17 @@ export default class ThroneService {
     id: this._extractId(house),
     name: house.name,
     region: house.region,
-    coatOfArms: house.coatOfArms === '' ? 'no' : house.coatOfArms,
-    seats: house.seats[0] === '' ? 'no' : house.seats,
+    coatOfArms: house.coatOfArms || 'no',
+    seats: house.seats[0] || 'no',
   })
 
   _transformPerson = person => ({
     id: this._extractId(person),
     name: person.name,
-    aliases: person.aliases,
+    aliases: person.aliases[0],
     gender: person.gender,
-    born: person.born,
-    culture: person.culture,
-    playedBy: person.playedBy,
+    born: person.born || 'no',
+    culture: person.culture || 'no',
+    playedBy: person.playedBy[0] || 'no',
   })
 }

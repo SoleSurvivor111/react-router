@@ -9,56 +9,56 @@ import Row from 'components/row';
 import { Record } from 'components/item-details/item-details';
 
 
-export default class PeoplePage extends Component {
+export default class HousePage extends Component {
   throneService = new ThroneService();
 
   state = {
-    selectedPerson: null,
+    selectedHouse: null,
   }
 
-  onPersonSelected = (id) => {
+  onHouseSelected = (id) => {
     this.setState({
-      selectedPerson: id,
+      selectedHouse: id,
     });
   }
 
   render() {
     const {
-      selectedPerson,
+      selectedHouse,
       hasError,
     } = this.state;
     const {
-      getPerson,
-      getPersonImage,
+      getHouse,
+      getHouseImage,
     } = this.throneService;
     if (hasError) {
       return <ErrorIndicator />;
     }
     const itemList = (
       <ItemList
-        onItemSelected={this.onPersonSelected}
-        getData={this.throneService.getAllPeople}
+        onItemSelected={this.onHouseSelected}
+        getData={this.throneService.getAllHouses}
       >
-        {i => `${i.name || i.aliases} (${i.gender})`}
+        {i => `${i.name} (${i.region})`}
       </ItemList>
     );
     const personDetails = (
       <PersonDetails
-        itemId={selectedPerson}
-        getData={getPerson}
-        getImageUrl={getPersonImage}
+        itemId={selectedHouse}
+        getData={getHouse}
+        getImageUrl={getHouseImage}
       >
         <Record
-          label="Gender:"
-          field="gender"
+          label="Region:"
+          field="region"
         />
         <Record
-          label="Culture:"
-          field="culture"
+          label="Coat of Arms:"
+          field="coatOfArms"
         />
         <Record
-          label="Played by:"
-          field="playedBy"
+          label="Seats:"
+          field="seats"
         />
       </PersonDetails>
     );

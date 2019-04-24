@@ -3,7 +3,7 @@ import 'components/random-house/random-house.css';
 import Spinner from 'components/spinner';
 import ThroneService from 'services/throne-service';
 import ErrorIndicator from 'components/error-indicator';
-import { imagesHomes } from 'images';
+import { imagesHouse } from 'images';
 
 export default class RandomHouse extends Component {
 throneService = new ThroneService();
@@ -75,7 +75,7 @@ const HouseView = ({ house }) => {
       <img
         alt=""
         className="house-image"
-        src={imagesHomes[id - 1]}
+        src={imagesHouse[id - 1]}
       />
       <div>
         <h4>{name}</h4>

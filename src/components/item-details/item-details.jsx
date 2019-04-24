@@ -3,6 +3,14 @@ import ThroneService from 'services/throne-service';
 import 'components/item-details/item-details.css';
 import Spinner from 'components/spinner';
 
+export const Record = ({ item, field, label }) => (
+  <li className="list-group-item">
+    <span className="term">{label}</span>
+    <span>{item[field]}</span>
+  </li>
+);
+
+
 export default class PersonDetails extends Component {
   throneService = new ThroneService();
 
@@ -48,7 +56,11 @@ export default class PersonDetails extends Component {
   }
 
   render() {
-    const { item, loading, image } = this.state;
+    const {
+      item,
+      loading,
+      image,
+    } = this.state;
     if (!item) {
       return <span>Select a person from the list</span>;
     }
@@ -56,7 +68,8 @@ export default class PersonDetails extends Component {
       <Content
         {...item}
         itemId={this.props.itemId}
-        image={image}
+        imageUrl={image}
+        children={this.props.children}
       />
     )
       : null;
@@ -71,42 +84,27 @@ export default class PersonDetails extends Component {
 }
 
 const Content = ({
-  id,
   name,
   aliases,
-  gender,
-  born,
-  culture,
-  playedBy,
-  itemId,
-  image,
+  imageUrl,
+  children,
+  ...item
 }) => (
   <React.Fragment>
     <img
-      alt={aliases[0] || name}
+      alt={aliases || name}
       className="person-image"
-      src={image}
-      title={aliases[0] || name}
+      src={imageUrl}
+      title={aliases || name}
     />
     <div className="card-body">
-      <h4>{aliases[0] || name}</h4>
+      <h4>{aliases || name}</h4>
       <ul className="list-group list-group-flush">
-        <li className="list-group-item">
-          <span className="term">Gender:</span>
-          <span>{gender}</span>
-        </li>
-        <li className="list-group-item">
-          <span className="term">Birth Year:</span>
-          <span>{born || 'no'}</span>
-        </li>
-        <li className="list-group-item">
-          <span className="term">Culture:</span>
-          <span>{culture || 'no'}</span>
-        </li>
-        <li className="list-group-item">
-          <span className="term">Played by:</span>
-          <span>{playedBy[0] || 'no'}</span>
-        </li>
+        {
+          React.Children.map(
+            children, child => React.cloneElement(child, { item })
+          )
+        }
       </ul>
     </div>
   </React.Fragment>

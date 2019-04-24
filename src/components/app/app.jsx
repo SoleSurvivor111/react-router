@@ -3,8 +3,7 @@ import ThroneService from 'services/throne-service';
 import Header from 'components/header';
 import RandomHouse from 'components/random-house';
 import PeoplePage from 'components/people-page';
-import ItemDetails from 'components/item-details';
-import Row from 'components/row';
+import HousePage from 'components/house-page';
 import 'components/app/app.css';
 
 export default class App extends Component {
@@ -23,21 +22,6 @@ export default class App extends Component {
   render() {
     const { showRandomHouse } = this.state;
     const randomHouse = showRandomHouse ? <RandomHouse /> : null;
-    const { getPerson, getBook } = this.throneService;
-    const personDetails = (
-      <ItemDetails
-        itemId={5}
-        getData={getPerson}
-        getImageUrl={this.throneService.getPersonImage}
-      />
-    );
-    const bookDetails = (
-      <ItemDetails
-        itemId={5}
-        getData={getPerson}
-        getImageUrl={this.throneService.getPersonImage}
-      />
-    );
     return (
       <div className="container">
         <Header />
@@ -50,10 +34,7 @@ export default class App extends Component {
           Toggle Random Planet
         </button>
         <PeoplePage />
-        <Row
-          left={personDetails}
-          right={bookDetails}
-        />
+        <HousePage />
       </div>
     );
   }
