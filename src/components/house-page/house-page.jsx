@@ -7,30 +7,29 @@ import 'components/people-page/people-page.css';
 import ErrorBoundry from 'components/error-boundry';
 import Row from 'components/row';
 import { Record } from 'components/item-details/item-details';
+import { withRouter } from 'react-router-dom';
 
-
-export default class HousePage extends Component {
+class HousePage extends Component {
   throneService = new ThroneService();
 
   state = {
-    selectedHouse: null,
+    hasError: null,
   }
 
-  onHouseSelected = (id) => {
-    this.setState({
-      selectedHouse: id,
-    });
+  onHouseSelected = (itemId) => {
+    const { history } = this.props;
+    history.push(itemId);
   }
 
   render() {
     const {
-      selectedHouse,
       hasError,
     } = this.state;
     const {
       getHouse,
       getHouseImage,
     } = this.throneService;
+    const { match } = this.props;
     if (hasError) {
       return <ErrorIndicator />;
     }
@@ -44,7 +43,7 @@ export default class HousePage extends Component {
     );
     const personDetails = (
       <PersonDetails
-        itemId={selectedHouse}
+        itemId={match.params.id}
         getData={getHouse}
         getImageUrl={getHouseImage}
       >
@@ -64,6 +63,7 @@ export default class HousePage extends Component {
     );
     return (
       <ErrorBoundry>
+        <h2>Houses</h2>
         <Row
           left={itemList}
           right={personDetails}
@@ -72,3 +72,4 @@ export default class HousePage extends Component {
     );
   }
 }
+export default withRouter(HousePage);

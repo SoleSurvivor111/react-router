@@ -88,6 +88,7 @@ const Content = ({
   aliases,
   imageUrl,
   children,
+  id,
   ...item
 }) => (
   <React.Fragment>

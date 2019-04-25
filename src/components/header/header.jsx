@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import 'components/header/header.css';
 
@@ -6,21 +7,17 @@ const Header = () => {
   return (
     <div className="header d-flex">
       <h3>
-        <a href="#">
+        <Link to="/">
           Game of thrones
-        </a>
+        </Link>
       </h3>
       <ul className="d-flex">
         <li>
-          <a href="#">People</a>
+          <Link to="/people/">People</Link>
         </li>
         <li>
-          <a href="#">Houses</a>
+          <Link to="/houses/">Houses</Link>
         </li>
-        <li>
-          <a href="#">Books</a>
-        </li>
-
       </ul>
     </div>
   );

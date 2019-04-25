@@ -7,30 +7,30 @@ import 'components/people-page/people-page.css';
 import ErrorBoundry from 'components/error-boundry';
 import Row from 'components/row';
 import { Record } from 'components/item-details/item-details';
+import { withRouter } from 'react-router-dom';
 
 
-export default class PeoplePage extends Component {
+class PeoplePage extends Component {
   throneService = new ThroneService();
 
   state = {
-    selectedPerson: null,
+    hasError: null,
   }
 
-  onPersonSelected = (id) => {
-    this.setState({
-      selectedPerson: id,
-    });
+  onPersonSelected = (itemId) => {
+    const { history } = this.props;
+    history.push(itemId);
   }
 
   render() {
     const {
-      selectedPerson,
       hasError,
     } = this.state;
     const {
       getPerson,
       getPersonImage,
     } = this.throneService;
+    const { match } = this.props;
     if (hasError) {
       return <ErrorIndicator />;
     }
@@ -44,7 +44,7 @@ export default class PeoplePage extends Component {
     );
     const personDetails = (
       <PersonDetails
-        itemId={selectedPerson}
+        itemId={match.params.id}
         getData={getPerson}
         getImageUrl={getPersonImage}
       >
@@ -64,6 +64,7 @@ export default class PeoplePage extends Component {
     );
     return (
       <ErrorBoundry>
+        <h2>People</h2>
         <Row
           left={itemList}
           right={personDetails}
@@ -72,3 +73,4 @@ export default class PeoplePage extends Component {
     );
   }
 }
+export default withRouter(PeoplePage);
