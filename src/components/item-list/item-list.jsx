@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Spinner from 'components/spinner';
+import PropTypes from 'prop-types';
 
 import 'components/item-list/item-list.css';
 
@@ -21,8 +22,9 @@ export default class ItemList extends Component {
 
   renderItems(arr) {
     return arr.map((item) => {
+      const { children } = this.props;
       const { id } = item;
-      const lable = this.props.children(item);
+      const lable = children(item);
       return (
         <li
           className="list-group-item"
@@ -50,3 +52,7 @@ export default class ItemList extends Component {
     );
   }
 }
+ItemList.propTypes = {
+  getData: PropTypes.func.isRequired,
+  children: PropTypes.func.isRequired,
+};
