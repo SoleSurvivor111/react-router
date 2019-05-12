@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import 'components/random-house/random-house.css';
 import Spinner from 'components/spinner';
 import ThroneService from 'services/throne-service';
@@ -50,7 +51,7 @@ render() {
   const hasData = !(loading || error);
   const errorMessage = error ? <ErrorIndicator /> : null;
   const spinner = loading ? <Spinner /> : null;
-  const content = hasData ? <HouseView house={house} /> : null;
+  const content = hasData ? <HouseView {...house} /> : null;
 
   if (loading) {
     return <Spinner />;
@@ -66,34 +67,38 @@ render() {
   );
 }
 }
-const HouseView = ({ house }) => {
-  const {
-    id, name, region, coatOfArms, seats,
-  } = house;
-  return (
-    <React.Fragment>
-      <img
-        alt=""
-        className="house-image"
-        src={imagesHouse[id - 1]}
-      />
-      <div>
-        <h4>{name}</h4>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">
-            <span className="term">Region:</span>
-            <span>{region}</span>
-          </li>
-          <li className="list-group-item">
-            <span className="term">Coat of Arms:</span>
-            <span>{coatOfArms}</span>
-          </li>
-          <li className="list-group-item">
-            <span className="term">Seats:</span>
-            <span>{seats}</span>
-          </li>
-        </ul>
-      </div>
-    </React.Fragment>
-  );
+const HouseView = ({
+  id, name, region, coatOfArms, seats,
+}) => (
+  <React.Fragment>
+    <img
+      alt=""
+      className="house-image"
+      src={imagesHouse[id - 1]}
+    />
+    <div>
+      <h4>{name}</h4>
+      <ul className="list-group list-group-flush">
+        <li className="list-group-item">
+          <span className="term">Region:</span>
+          <span>{region}</span>
+        </li>
+        <li className="list-group-item">
+          <span className="term">Coat of Arms:</span>
+          <span>{coatOfArms}</span>
+        </li>
+        <li className="list-group-item">
+          <span className="term">Seats:</span>
+          <span>{seats}</span>
+        </li>
+      </ul>
+    </div>
+  </React.Fragment>
+);
+HouseView.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  region: PropTypes.string.isRequired,
+  coatOfArms: PropTypes.string.isRequired,
+  seats: PropTypes.string.isRequired,
 };

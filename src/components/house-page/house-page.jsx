@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import ItemList from 'components/item-list';
 import ErrorIndicator from 'components/error-indicator';
 import ThroneService from 'services/throne-service';
@@ -39,3 +40,7 @@ class HousePage extends Component {
   }
 }
 export default withRouter(HousePage);
+
+HousePage.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+};

@@ -47,7 +47,6 @@ export default class ThroneService {
 
   getHouseImage = ({ id }) => imagesHouse[id - 1]
 
-  // getBooksImage = ({ id }) => imagesBook[id - 1]
 
   _extractId = (item) => {
     const idRegExp = /\/([0-9]*)$/;

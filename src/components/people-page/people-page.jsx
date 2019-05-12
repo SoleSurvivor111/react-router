@@ -5,7 +5,7 @@ import ThroneService from 'services/throne-service';
 import 'components/people-page/people-page.css';
 import ErrorBoundry from 'components/error-boundry';
 import { withRouter } from 'react-router-dom';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 import PropTypes from 'prop-types';
 
 
@@ -44,5 +44,8 @@ class PeoplePage extends Component {
 export default withRouter(PeoplePage);
 
 PeoplePage.propTypes = {
-  history: PropTypes.func.isRequired,
+  history: PropTypes.objectOf,
+};
+PeoplePage.defaultProps = {
+  history: null,
 };

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ThroneService from 'services/throne-service';
 import 'components/item-details/item-details.css';
 import Spinner from 'components/spinner';
+import Content from 'components/item-details/Content';
 
 export const Record = ({ item, field, label }) => (
   <li className="list-group-item">
@@ -10,11 +12,16 @@ export const Record = ({ item, field, label }) => (
   </li>
 );
 
+Record.propTypes = {
+  item: PropTypes.object.isRequired,
+  field: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+};
 
 export default class PersonDetails extends Component {
   throneService = new ThroneService();
 
-  state ={
+  state = {
     item: null,
     loading: true,
     image: null,
@@ -25,7 +32,8 @@ export default class PersonDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.itemId !== prevProps.itemId) {
+    const { itemId } = this.props;
+    if (itemId !== prevProps.itemId) {
       this.updateItem();
     }
   }
@@ -56,20 +64,18 @@ export default class PersonDetails extends Component {
   }
 
   render() {
+    const { itemId, children } = this.props;
     const {
       item,
       loading,
       image,
     } = this.state;
-    if (!item) {
-      return <span>Select a person from the list</span>;
-    }
     const content = !loading ? (
       <Content
         {...item}
-        itemId={this.props.itemId}
+        itemId={itemId}
         imageUrl={image}
-        children={this.props.children}
+        childrenArr={children}
       />
     )
       : null;
@@ -83,30 +89,13 @@ export default class PersonDetails extends Component {
   }
 }
 
-const Content = ({
-  name,
-  aliases,
-  imageUrl,
-  children,
-  id,
-  ...item
-}) => (
-  <React.Fragment>
-    <img
-      alt={aliases || name}
-      className="person-image"
-      src={imageUrl}
-      title={aliases || name}
-    />
-    <div className="card-body">
-      <h4>{aliases || name}</h4>
-      <ul className="list-group list-group-flush">
-        {
-          React.Children.map(
-            children, child => React.cloneElement(child, { item })
-          )
-        }
-      </ul>
-    </div>
-  </React.Fragment>
-);
+PersonDetails.propTypes = {
+  itemId: PropTypes.string.isRequired,
+  getData: PropTypes.func.isRequired,
+  getImageUrl: PropTypes.func.isRequired,
+  children: PropTypes.node,
+};
+
+PersonDetails.defaultProps = {
+  children: null,
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ItemDetails from 'components/item-details';
 import { Record } from 'components/item-details/item-details';
 
@@ -27,3 +28,9 @@ const HouseDetails = ({
   </ItemDetails>
 );
 export default HouseDetails;
+
+HouseDetails.propTypes = {
+  itemId: PropTypes.string.isRequired,
+  getHouse: PropTypes.func.isRequired,
+  getHouseImage: PropTypes.func.isRequired,
+};
