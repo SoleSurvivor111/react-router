@@ -21,17 +21,22 @@ export default class ItemList extends Component {
   }
 
   renderItems(arr) {
-    return arr.map((item) => {
-      const { children } = this.props;
+    return arr.map((item, index) => {
+      const { children, onItemSelected } = this.props;
       const { id } = item;
       const lable = children(item);
       return (
         <li
-          className="list-group-item"
           key={id}
-          onClick={() => this.props.onItemSelected(id)}
+          className="list-group-item"
         >
-          {lable}
+          <div
+            role="menuitem"
+            tabIndex={index}
+            onClick={() => onItemSelected(id)}
+          >
+            {lable}
+          </div>
         </li>
       );
     });
@@ -55,4 +60,5 @@ export default class ItemList extends Component {
 ItemList.propTypes = {
   getData: PropTypes.func.isRequired,
   children: PropTypes.func.isRequired,
+  onItemSelected: PropTypes.func.isRequired,
 };

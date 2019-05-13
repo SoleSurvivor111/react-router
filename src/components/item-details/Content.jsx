@@ -33,7 +33,7 @@ export default Content;
 Content.propTypes = {
   name: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
-  aliases: PropTypes.string.isRequired,
+  aliases: PropTypes.string,
   childrenArr: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
@@ -47,4 +47,8 @@ Content.propTypes = {
     playedBy: PropTypes.string,
   })).isRequired,
   id: PropTypes.string.isRequired,
+};
+
+Content.defaultProps = {
+  aliases: null,
 };

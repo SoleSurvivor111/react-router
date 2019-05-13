@@ -13,11 +13,14 @@ export const Record = ({ item, field, label }) => (
 );
 
 Record.propTypes = {
-  item: PropTypes.object.isRequired,
+  item: PropTypes.object,
   field: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
 };
 
+Record.defaultProps = {
+  item: null,
+};
 export default class PersonDetails extends Component {
   throneService = new ThroneService();
 

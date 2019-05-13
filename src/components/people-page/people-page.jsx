@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import ReactRouterPropTypes from 'react-router-prop-types';
+import queryString from 'query-string';
+import ThroneService from 'services/throne-service';
 import ItemList from 'components/item-list';
 import ErrorIndicator from 'components/error-indicator';
-import ThroneService from 'services/throne-service';
-import 'components/people-page/people-page.css';
 import ErrorBoundry from 'components/error-boundry';
-import { withRouter } from 'react-router-dom';
-// import queryString from 'query-string';
-import PropTypes from 'prop-types';
+import 'components/people-page/people-page.css';
 
 
 class PeoplePage extends Component {
@@ -14,6 +14,12 @@ class PeoplePage extends Component {
 
   state = {
     hasError: null,
+  }
+
+  componentDidMount() {
+    const { location } = this.props;
+    const values = queryString.parse(location.search);
+    values.sorton = 'asdasd';
   }
 
   onPersonSelected = (itemId) => {
@@ -44,8 +50,6 @@ class PeoplePage extends Component {
 export default withRouter(PeoplePage);
 
 PeoplePage.propTypes = {
-  history: PropTypes.objectOf,
-};
-PeoplePage.defaultProps = {
-  history: null,
+  location: ReactRouterPropTypes.location.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 };
