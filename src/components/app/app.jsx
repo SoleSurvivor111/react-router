@@ -16,11 +16,12 @@ export default class App extends Component {
     showRandomHouse: true,
   }
 
-  toggleRandomHouse = () => {
+  handleToggleRandomHouse = () => {
     this.setState(state => ({
       showRandomHouse: !state.showRandomHouse,
     }));
   };
+
 
   render() {
     const {
@@ -29,7 +30,7 @@ export default class App extends Component {
       getHouse,
       getHouseImage,
     } = this.throneService;
-    const { showRandomHouse } = this.state;
+    const { showRandomHouse, searchValue } = this.state;
     const randomHouse = showRandomHouse ? <RandomHouse /> : null;
     return (
       <Router>
@@ -39,7 +40,7 @@ export default class App extends Component {
           <button
             type="button"
             className="toggle-planet btn btn-warning btn-lg"
-            onClick={this.toggleRandomHouse}
+            onClick={this.handleToggleRandomHouse}
           >
           Toggle Random House
           </button>
@@ -57,7 +58,13 @@ export default class App extends Component {
             />
             <Route
               path="/people/"
-              component={PeoplePage}
+              render={({ location }) => (
+                <PeoplePage
+                  searchValue={searchValue}
+                  onSearch={this.handleSearch}
+                  location={location}
+                />
+              )}
               exact
             />
             <Route
@@ -75,7 +82,11 @@ export default class App extends Component {
             />
             <Route
               path="/houses/"
-              component={HousePage}
+              render={() => (
+                <HousePage
+                  searchValue={searchValue}
+                />
+              )}
               exact
             />
             <Route

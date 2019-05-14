@@ -21,8 +21,17 @@ export default class ItemList extends Component {
   }
 
   renderItems(arr) {
-    return arr.map((item, index) => {
-      const { children, onItemSelected } = this.props;
+    const { searchValue, onItemSelected } = this.props;
+    const filteredArr = arr.filter(
+      (i) => {
+        const value = i.aliases || i.name;
+        return value.includes(searchValue);
+      },
+    );
+    return filteredArr.map((item, index) => {
+      const {
+        children,
+      } = this.props;
       const { id } = item;
       const lable = children(item);
       return (
@@ -58,6 +67,7 @@ export default class ItemList extends Component {
   }
 }
 ItemList.propTypes = {
+  searchValue: PropTypes.string.isRequired,
   getData: PropTypes.func.isRequired,
   children: PropTypes.func.isRequired,
   onItemSelected: PropTypes.func.isRequired,
