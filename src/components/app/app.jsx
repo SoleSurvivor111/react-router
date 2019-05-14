@@ -30,7 +30,7 @@ export default class App extends Component {
       getHouse,
       getHouseImage,
     } = this.throneService;
-    const { showRandomHouse, searchValue } = this.state;
+    const { showRandomHouse } = this.state;
     const randomHouse = showRandomHouse ? <RandomHouse /> : null;
     return (
       <Router>
@@ -60,8 +60,6 @@ export default class App extends Component {
               path="/people/"
               render={({ location }) => (
                 <PeoplePage
-                  searchValue={searchValue}
-                  onSearch={this.handleSearch}
                   location={location}
                 />
               )}
@@ -82,9 +80,9 @@ export default class App extends Component {
             />
             <Route
               path="/houses/"
-              render={() => (
+              render={({ location }) => (
                 <HousePage
-                  searchValue={searchValue}
+                  location={location}
                 />
               )}
               exact

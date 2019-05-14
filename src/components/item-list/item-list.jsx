@@ -37,9 +37,9 @@ export default class ItemList extends Component {
       return (
         <li
           key={id}
-          className="list-group-item"
         >
           <div
+            className="list-group-item"
             role="menuitem"
             tabIndex={index}
             onClick={() => onItemSelected(id)}
