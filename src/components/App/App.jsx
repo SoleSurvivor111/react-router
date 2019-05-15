@@ -5,9 +5,7 @@ import Header from 'components/header';
 import RandomHouse from 'components/random-house';
 import PeoplePage from 'components/people-page';
 import PeopleDetails from 'components/people-details';
-import HouseDetails from 'components/house-details';
-import HousePage from 'components/house-page';
-import 'components/app/app.css';
+import 'components/App/App.css';
 
 export default class App extends Component {
   throneService = new ThroneService();
@@ -27,11 +25,8 @@ export default class App extends Component {
     const {
       getPerson,
       getPersonImage,
-      getHouse,
-      getHouseImage,
     } = this.throneService;
-    const { showRandomHouse } = this.state;
-    const randomHouse = showRandomHouse ? <RandomHouse /> : null;
+    const randomHouse = this.props.showRamdomHouse ? <RandomHouse /> : null;
     return (
       <Router>
         <div className="container">
@@ -40,7 +35,7 @@ export default class App extends Component {
           <button
             type="button"
             className="toggle-planet btn btn-warning btn-lg"
-            onClick={this.handleToggleRandomHouse}
+            onClick={this.props.toggleRandomHouse}
           >
           Toggle Random House
           </button>
@@ -74,28 +69,6 @@ export default class App extends Component {
                     itemId={id}
                     getPerson={getPerson}
                     getPersonImage={getPersonImage}
-                  />
-                );
-              }}
-            />
-            <Route
-              path="/houses/"
-              render={({ location }) => (
-                <HousePage
-                  location={location}
-                />
-              )}
-              exact
-            />
-            <Route
-              path="/houses/:id?"
-              render={({ match }) => {
-                const { id } = match.params;
-                return (
-                  <HouseDetails
-                    itemId={id}
-                    getHouse={getHouse}
-                    getHouseImage={getHouseImage}
                   />
                 );
               }}
