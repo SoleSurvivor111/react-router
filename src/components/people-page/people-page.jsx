@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import ThroneService from 'services/throne-service';
+import CharacterAddForm from 'components/CharacterAddForm/CharacterAddForm';
 import ItemList from 'components/item-list';
 import ErrorIndicator from 'components/error-indicator';
 import ErrorBoundry from 'components/error-boundry';
@@ -45,17 +46,16 @@ class PeoplePage extends Component {
     const {
       hasError,
     } = this.state;
+    const {
+      onChangeFormValue,
+    } = this.props;
     if (hasError) {
       return <ErrorIndicator />;
     }
     return (
       <ErrorBoundry>
-        <h3>Search</h3>
-        <input
-          type="text"
-          value={this.getParams().query}
-          className="form-control"
-          onChange={this.handleUpdateURL}
+        <CharacterAddForm
+          onChangeFormValue={onChangeFormValue}
         />
         <h2>People</h2>
         <ItemList
@@ -65,6 +65,13 @@ class PeoplePage extends Component {
         >
           {i => `${i.aliases} (${i.gender})`}
         </ItemList>
+        <h3>Search</h3>
+        <input
+          type="text"
+          value={this.getParams().query}
+          className="form-control"
+          onChange={this.handleUpdateURL}
+        />
       </ErrorBoundry>
     );
   }

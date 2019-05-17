@@ -29,6 +29,7 @@ export default class ItemList extends Component {
       },
     );
     return filteredArr.map((item, index) => {
+      console.log(index);
       const {
         children,
       } = this.props;
@@ -36,13 +37,13 @@ export default class ItemList extends Component {
       const lable = children(item);
       return (
         <li
-          key={id}
+          key={index + 1}
         >
           <div
             className="list-group-item"
             role="menuitem"
             tabIndex={index}
-            onClick={() => onItemSelected(id)}
+            onClick={() => onItemSelected(index + 1)}
           >
             {lable}
           </div>

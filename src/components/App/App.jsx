@@ -26,6 +26,9 @@ export default class App extends Component {
       getPerson,
       getPersonImage,
     } = this.throneService;
+    const {
+      changeFormValue,
+    } = this.props;
     const randomHouse = this.props.showRamdomHouse ? <RandomHouse /> : null;
     return (
       <Router>
@@ -56,6 +59,7 @@ export default class App extends Component {
               render={({ location }) => (
                 <PeoplePage
                   location={location}
+                  onChangeFormValue={changeFormValue}
                 />
               )}
               exact
