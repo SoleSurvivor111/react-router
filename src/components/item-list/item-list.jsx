@@ -1,26 +1,12 @@
 import React, { Component } from 'react';
-import Spinner from 'components/spinner';
 import PropTypes from 'prop-types';
 
 import 'components/item-list/item-list.css';
 
 export default class ItemList extends Component {
-  state = {
-    itemList: null,
-  };
-
-  componentDidMount() {
-    const { getData } = this.props;
-
-    getData()
-      .then((itemList) => {
-        this.setState({
-          itemList,
-        });
-      });
-  }
 
   renderItems(arr) {
+    console.log(arr);
     const { searchValue, onItemSelected } = this.props;
     const filteredArr = arr.filter(
       (i) => {
@@ -29,7 +15,6 @@ export default class ItemList extends Component {
       },
     );
     return filteredArr.map((item, index) => {
-      console.log(index);
       const {
         children,
       } = this.props;
@@ -53,12 +38,7 @@ export default class ItemList extends Component {
   }
 
   render() {
-    const { itemList } = this.state;
-
-    if (!itemList) {
-      return <Spinner />;
-    }
-
+    const { itemList } = this.props;
     const items = this.renderItems(itemList);
     return (
       <ul className="item-list list-group">
@@ -69,7 +49,6 @@ export default class ItemList extends Component {
 }
 ItemList.propTypes = {
   searchValue: PropTypes.string.isRequired,
-  getData: PropTypes.func.isRequired,
   children: PropTypes.func.isRequired,
   onItemSelected: PropTypes.func.isRequired,
 };

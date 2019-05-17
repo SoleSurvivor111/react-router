@@ -47,7 +47,9 @@ class PeoplePage extends Component {
       hasError,
     } = this.state;
     const {
-      onChangeFormValue,
+      stateOfForm,
+      formFunctions,
+      peopleListState,
     } = this.props;
     if (hasError) {
       return <ErrorIndicator />;
@@ -55,15 +57,16 @@ class PeoplePage extends Component {
     return (
       <ErrorBoundry>
         <CharacterAddForm
-          onChangeFormValue={onChangeFormValue}
+          {...stateOfForm}
+          {...formFunctions}
         />
         <h2>People</h2>
         <ItemList
           onItemSelected={this.handlePersonSelected}
-          getData={this.throneService.getAllPeople}
+          itemList={peopleListState}
           searchValue={this.getParams().query}
         >
-          {i => `${i.aliases} (${i.gender})`}
+          {i => `${i.name} (${i.gender})`}
         </ItemList>
         <h3>Search</h3>
         <input

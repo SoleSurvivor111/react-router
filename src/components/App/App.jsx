@@ -27,7 +27,9 @@ export default class App extends Component {
       getPersonImage,
     } = this.throneService;
     const {
-      changeFormValue,
+      stateOfForm,
+      formFunctions,
+      peopleListState,
     } = this.props;
     const randomHouse = this.props.showRamdomHouse ? <RandomHouse /> : null;
     return (
@@ -59,7 +61,9 @@ export default class App extends Component {
               render={({ location }) => (
                 <PeoplePage
                   location={location}
-                  onChangeFormValue={changeFormValue}
+                  stateOfForm={stateOfForm}
+                  formFunctions={formFunctions}
+                  peopleListState={peopleListState}
                 />
               )}
               exact

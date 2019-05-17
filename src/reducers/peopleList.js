@@ -1,9 +1,11 @@
 import { ADD_PERSON, CHANGE_FORM_VALUE } from 'const';
+import some from 'lodash/some';
+import { v4 } from 'node-uuid';
 
 const initialState = {
   addCharacterForm: {
     name: '',
-    gender: '',
+    gender: 'Male',
     culture: '',
     playedBy: '',
   },
@@ -13,24 +15,13 @@ const initialState = {
 const peopleList = (state = initialState, action) => {
   switch (action.type) {
     case ADD_PERSON: {
-      const {
-        id,
-        name,
-        gender,
-        culture,
-        playedBy,
-      } = action.payload;
+      if (some(state.addCharacterForm, i => i === '')) {
+        return state;
+      }
       return {
         ...state,
-        people: [
-          ...state.people,
-          {
-            id,
-            name,
-            gender,
-            culture,
-            playedBy,
-          },
+        people: [...state.people,
+          { ...state.addCharacterForm, id: v4() },
         ],
       };
     }
