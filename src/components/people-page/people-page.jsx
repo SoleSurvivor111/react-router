@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import ThroneService from 'services/throne-service';
-import CharacterAddForm from 'components/CharacterAddForm/CharacterAddForm';
+import CharacterAddForm from 'components/character-add-form/character-add-form';
 import ItemList from 'components/item-list';
 import ErrorIndicator from 'components/error-indicator';
 import ErrorBoundry from 'components/error-boundry';
@@ -50,6 +50,7 @@ class PeoplePage extends Component {
       stateOfForm,
       formFunctions,
       peopleListState,
+      itemFunctions,
     } = this.props;
     if (hasError) {
       return <ErrorIndicator />;
@@ -65,6 +66,8 @@ class PeoplePage extends Component {
           onItemSelected={this.handlePersonSelected}
           itemList={peopleListState}
           searchValue={this.getParams().query}
+          checkedValues={i => [i.name, i.gender]}
+          itemFunctions={itemFunctions}
         >
           {i => `${i.name} (${i.gender})`}
         </ItemList>

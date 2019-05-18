@@ -6,7 +6,7 @@ import rootReducer from 'reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import debounce from 'lodash/debounce';
 import { loadState, saveState } from 'localStoreage';
-import AppContainer from 'containers/AppContainer';
+import AppContainer from 'containers/app-container';
 
 const persistedState = loadState();
 const store = createStore(rootReducer, persistedState, composeWithDevTools());

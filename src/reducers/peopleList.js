@@ -1,14 +1,20 @@
-import { ADD_PERSON, CHANGE_FORM_VALUE } from 'const';
+import {
+  ADD_PERSON,
+  CHANGE_FORM_VALUE,
+  DELETE_ITEM,
+} from 'const';
 import some from 'lodash/some';
 import { v4 } from 'node-uuid';
 
+const addFormInitialState = {
+  name: '',
+  gender: 'Male',
+  culture: '',
+  playedBy: '',
+};
+
 const initialState = {
-  addCharacterForm: {
-    name: '',
-    gender: 'Male',
-    culture: '',
-    playedBy: '',
-  },
+  addCharacterForm: addFormInitialState,
   people: [],
 };
 
@@ -23,6 +29,7 @@ const peopleList = (state = initialState, action) => {
         people: [...state.people,
           { ...state.addCharacterForm, id: v4() },
         ],
+        addCharacterForm: addFormInitialState,
       };
     }
     case CHANGE_FORM_VALUE:
@@ -32,6 +39,11 @@ const peopleList = (state = initialState, action) => {
           ...state.addCharacterForm,
           [action.payload.fieldName]: action.payload.value,
         },
+      };
+    case DELETE_ITEM:
+      return {
+        ...state,
+        people: state.people.filter(i => i.id !== action.payload.id),
       };
     default:
       return state;

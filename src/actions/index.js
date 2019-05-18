@@ -2,6 +2,7 @@ import {
   TOGGLE_RANDOM_HOUSE,
   ADD_PERSON,
   CHANGE_FORM_VALUE,
+  DELETE_ITEM,
 } from 'const';
 
 export const toggleRandomHouse = () => ({
@@ -18,4 +19,9 @@ export const changeFormValue = e => ({
 
 export const submit = () => ({
   type: ADD_PERSON,
+});
+
+export const deleteItem = id => ({
+  type: DELETE_ITEM,
+  payload: { id },
 });

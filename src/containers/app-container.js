@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import App from 'components/App';
+import App from 'components/app';
 import * as actions from 'actions';
 
 const mapDispatchToProps = (disathch) => {
@@ -8,12 +8,16 @@ const mapDispatchToProps = (disathch) => {
     toggleRandomHouse: onToggleRandomHouse,
     changeFormValue: onChangeFormValue,
     submit: onSubmit,
+    deleteItem: onDeleteItem,
   } = bindActionCreators(actions, disathch);
   return {
     onToggleRandomHouse,
     formFunctions: {
       onChangeFormValue,
       onSubmit,
+    },
+    itemFunctions: {
+      onDeleteItem,
     },
   };
 };

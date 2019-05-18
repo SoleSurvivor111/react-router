@@ -5,7 +5,7 @@ import Header from 'components/header';
 import RandomHouse from 'components/random-house';
 import PeoplePage from 'components/people-page';
 import PeopleDetails from 'components/people-details';
-import 'components/App/App.css';
+import 'components/app/app.css';
 
 export default class App extends Component {
   throneService = new ThroneService();
@@ -30,6 +30,7 @@ export default class App extends Component {
       stateOfForm,
       formFunctions,
       peopleListState,
+      itemFunctions,
     } = this.props;
     const randomHouse = this.props.showRamdomHouse ? <RandomHouse /> : null;
     return (
@@ -64,6 +65,7 @@ export default class App extends Component {
                   stateOfForm={stateOfForm}
                   formFunctions={formFunctions}
                   peopleListState={peopleListState}
+                  itemFunctions={itemFunctions}
                 />
               )}
               exact
