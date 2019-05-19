@@ -4,26 +4,30 @@ import ItemDetails from 'components/item-details';
 import { Record } from 'components/item-details/item-details';
 
 const PersonDetails = ({
-  itemId,
   getPerson,
   getPersonImage,
+  recordFunctions,
+  itemDetailsdFunctions,
 }) => (
   <ItemDetails
-    itemId={itemId}
     getData={getPerson}
     getImageUrl={getPersonImage}
+    {...itemDetailsdFunctions}
   >
     <Record
       label="Gender:"
       field="gender"
+      {...recordFunctions}
     />
     <Record
       label="Culture:"
       field="culture"
+      {...recordFunctions}
     />
     <Record
       label="Played by:"
       field="playedBy"
+      {...recordFunctions}
     />
   </ItemDetails>
 );

@@ -14,6 +14,7 @@ const store = createStore(rootReducer, persistedState, composeWithDevTools());
 store.subscribe(debounce(() => {
   saveState({
     showRandomHouse: store.getState().showRandomHouse,
+    peopleList: store.getState().peopleList,
   });
 }, 500));
 ReactDOM.render(

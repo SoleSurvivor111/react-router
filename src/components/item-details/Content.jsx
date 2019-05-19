@@ -1,33 +1,73 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Content = ({
-  name,
-  aliases,
-  imageUrl,
-  childrenArr,
-  id,
-  ...item
-}) => (
-  <React.Fragment>
-    <img
-      alt={aliases || name}
-      className="person-image"
-      src={imageUrl}
-      title={aliases || name}
-    />
-    <div className="card-body">
-      <h4>{aliases || name}</h4>
-      <ul className="list-group list-group-flush">
-        {
+class Content extends React.Component {
+  state = {
+    isEditInput: false,
+  }
+
+  handleAddEditInput = () => {
+    this.setState({
+      isEditInput: true,
+    });
+  }
+
+  handleDeleteItem = (e) => {
+    const {
+      onChangeProperty,
+    } = this.props;
+    onChangeProperty(e, 'name');
+    this.setState({
+      isEditInput: false,
+    });
+  }
+
+  render() {
+    const {
+      name,
+      characterPicture,
+      childrenArr,
+      ...item
+    } = this.props;
+    const { isEditInput } = this.state;
+    return (
+      <React.Fragment>
+        <img
+          alt={name}
+          className="person-image"
+          src={characterPicture}
+          title={name}
+        />
+        <div className="card-body">
+          {!isEditInput && (
+            <h4
+              onDoubleClick={this.handleAddEditInput}
+            >
+              {name}
+            </h4>
+          )}
+          {isEditInput
+            && (
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              defaultValue={name}
+              autoFocus
+              onBlur={this.handleDeleteItem}
+            />
+            )}
+          <ul className="list-group list-group-flush">
+            {
           React.Children.map(
             childrenArr, child => React.cloneElement(child, { item }),
           )
         }
-      </ul>
-    </div>
-  </React.Fragment>
-);
+          </ul>
+        </div>
+      </React.Fragment>
+    );
+  }
+}
 export default Content;
 
 Content.propTypes = {

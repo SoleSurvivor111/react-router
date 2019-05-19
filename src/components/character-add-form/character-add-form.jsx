@@ -7,6 +7,7 @@ const CharacterAddForm = ({
   cultureValue,
   playedByValue,
   onChangeFormValue,
+  characterPictureValue,
   onSubmit,
 }) => (
   <form className="d-flex flex-column align-content-center">
@@ -74,6 +75,22 @@ const CharacterAddForm = ({
             className="form-control"
             id="playeBby"
             placeholder="Played by:"
+            onChange={onChangeFormValue}
+          />
+        </div>
+        <div className="form-group">
+          <label
+            htmlFor="characterPicture"
+          >
+            Character picture
+          </label>
+          <input
+            name="characterPicture"
+            type="text"
+            value={characterPictureValue}
+            className="form-control"
+            id="characterPicture"
+            placeholder="Enter URl"
             onChange={onChangeFormValue}
           />
         </div>

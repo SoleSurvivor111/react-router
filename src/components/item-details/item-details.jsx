@@ -1,16 +1,66 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import ThroneService from 'services/throne-service';
-import 'components/item-details/item-details.css';
-import Spinner from 'components/spinner';
 import Content from 'components/item-details/Content';
+import 'components/item-details/item-details.css';
 
-export const Record = ({ item, field, label }) => (
-  <li className="list-group-item">
-    <span className="term">{label}</span>
+export class Record extends React.Component {
+  state = {
+    isEditInput: false,
+  }
+
+  handleAddEditInput = () => {
+    this.setState({
+      isEditInput: true,
+    });
+  }
+
+  handleDeleteItem = (e) => {
+    const {
+      onChangeProperty,
+      field,
+    } = this.props;
+    onChangeProperty(e, field);
+    this.setState({
+      isEditInput: false,
+    });
+  }
+
+  render() {
+    const {
+      item,
+      field,
+      label,
+    } = this.props;
+    const { isEditInput } = this.state;
+    const value = !isEditInput && (
     <span>{item[field]}</span>
-  </li>
-);
+    );
+    const editInput = isEditInput
+      && (
+      <input
+        type="text"
+        className="form-control form-control-sm"
+        defaultValue={item[field]}
+        autoFocus
+        onBlur={this.handleDeleteItem}
+      />
+      );
+    return (
+      <li
+        className="list-group-item"
+        onDoubleClick={this.handleAddEditInput}
+      >
+        <span
+          className="term"
+        >
+          {label}
+        </span>
+        {value}
+        {editInput}
+      </li>
+    );
+  }
+}
 
 Record.propTypes = {
   item: PropTypes.object,
@@ -21,81 +71,19 @@ Record.propTypes = {
 Record.defaultProps = {
   item: null,
 };
-export default class PersonDetails extends Component {
-  throneService = new ThroneService();
-
-  state = {
-    item: null,
-    loading: true,
-    image: null,
-  };
-
-  componentDidMount() {
-    this.updateItem();
-  }
-
-  componentDidUpdate(prevProps) {
-    const { itemId } = this.props;
-    if (itemId !== prevProps.itemId) {
-      this.updateItem();
-    }
-  }
-
-  updateItem() {
-    const {
-      itemId,
-      getData,
-      getImageUrl,
-    } = this.props;
-
-    if (!itemId) {
-      return;
-    }
-
-    this.setState({
-      loading: true,
-    });
-
-    getData(itemId)
-      .then((item) => {
-        this.setState({
-          item,
-          image: getImageUrl(item),
-          loading: false,
-        });
-      });
-  }
-
-  render() {
-    const { itemId, children } = this.props;
-    const {
-      item,
-      loading,
-      image,
-    } = this.state;
-    const content = !loading ? (
-      <Content
-        {...item}
-        itemId={itemId}
-        imageUrl={image}
-        childrenArr={children}
-      />
-    )
-      : null;
-    const spinner = loading ? <Spinner /> : null;
-    return (
-      <div className="person-details card">
-        {content}
-        {spinner}
-      </div>
-    );
-  }
-}
+const PersonDetails = ({ children, getData, onChangeProperty }) => (
+  <div className="person-details card">
+    <Content
+      {...getData}
+      childrenArr={children}
+      onChangeProperty={onChangeProperty}
+    />
+  </div>
+);
+export default PersonDetails;
 
 PersonDetails.propTypes = {
-  itemId: PropTypes.string.isRequired,
-  getData: PropTypes.func.isRequired,
-  getImageUrl: PropTypes.func.isRequired,
+  getData: PropTypes.object.isRequired,
   children: PropTypes.node,
 };
 

@@ -12,6 +12,12 @@
 
 .person-details .list-group-item {
   padding: .25rem;
+  display: flex;
+  align-items: center;
+}
+.person-details .list-group-item .form-control-sm {
+  flex: 0 0 80px;
+  height: auto;
 }
 
 .person-details .list-group-item .term{

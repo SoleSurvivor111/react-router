@@ -9,6 +9,7 @@ const mapDispatchToProps = (disathch) => {
     changeFormValue: onChangeFormValue,
     submit: onSubmit,
     deleteItem: onDeleteItem,
+    changeProperty: onChangeProperty,
   } = bindActionCreators(actions, disathch);
   return {
     onToggleRandomHouse,
@@ -19,6 +20,12 @@ const mapDispatchToProps = (disathch) => {
     itemFunctions: {
       onDeleteItem,
     },
+    recordFunctions: {
+      onChangeProperty,
+    },
+    itemDetailsdFunctions: {
+      onChangeProperty,
+    },
   };
 };
 const mapStateToProps = (state) => {
@@ -27,6 +34,7 @@ const mapStateToProps = (state) => {
     name,
     culture,
     playedBy,
+    characterPicture,
   } = state.peopleList.addCharacterForm;
   return {
     showRamdomHouse: state.showRandomHouse,
@@ -35,6 +43,7 @@ const mapStateToProps = (state) => {
       nameValue: name,
       cultureValue: culture,
       playedByValue: playedBy,
+      characterPictureValue: characterPicture,
     },
     peopleListState: state.peopleList.people,
   };

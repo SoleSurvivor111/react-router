@@ -1,4 +1,4 @@
-import { imagesPerson, imagesHouse } from 'images';
+import { imagesHouse } from 'images';
 
 export default class ThroneService {
   _apiBase = 'https://anapioficeandfire.com/api';
@@ -43,7 +43,6 @@ export default class ThroneService {
     return this._transformHouse(house);
   }
 
-  getPersonImage = ({ id }) => imagesPerson[id - 1]
 
   getHouseImage = ({ id }) => imagesHouse[id - 1]
 
