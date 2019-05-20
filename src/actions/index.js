@@ -27,10 +27,11 @@ export const deleteItem = id => ({
   payload: { id },
 });
 
-export const changeProperty = (e, fieldName) => ({
+export const changeProperty = (e, fieldName, id) => ({
   type: CHANGE_PROPERTY,
   payload: {
     value: e.target.value,
     fieldName,
+    id,
   },
 });

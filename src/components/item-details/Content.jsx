@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { urlCheckExpression } from 'const';
 
 class Content extends React.Component {
   state = {
@@ -12,11 +13,12 @@ class Content extends React.Component {
     });
   }
 
-  handleDeleteItem = (e) => {
+  handleDeleteEditInput = (e) => {
     const {
       onChangeProperty,
+      id,
     } = this.props;
-    onChangeProperty(e, 'name');
+    onChangeProperty(e, 'name', id);
     this.setState({
       isEditInput: false,
     });
@@ -35,7 +37,7 @@ class Content extends React.Component {
         <img
           alt={name}
           className="person-image"
-          src={characterPicture}
+          src={characterPicture.match(urlCheckExpression) || 'https://ndab.niledutch.com/NileDutch/api_imageviewer.php?contactid=520'}
           title={name}
         />
         <div className="card-body">
@@ -43,7 +45,7 @@ class Content extends React.Component {
             <h4
               onDoubleClick={this.handleAddEditInput}
             >
-              {name}
+              {name || 'Enter name'}
             </h4>
           )}
           {isEditInput
@@ -53,7 +55,7 @@ class Content extends React.Component {
               className="form-control form-control-sm"
               defaultValue={name}
               autoFocus
-              onBlur={this.handleDeleteItem}
+              onBlur={this.handleDeleteEditInput}
             />
             )}
           <ul className="list-group list-group-flush">
@@ -72,8 +74,8 @@ export default Content;
 
 Content.propTypes = {
   name: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
-  aliases: PropTypes.string,
+  characterPicture: PropTypes.string.isRequired,
+  item: PropTypes.object,
   childrenArr: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
@@ -87,8 +89,8 @@ Content.propTypes = {
     playedBy: PropTypes.string,
   })).isRequired,
   id: PropTypes.string.isRequired,
+  onChangeProperty: PropTypes.func.isRequired,
 };
-
 Content.defaultProps = {
-  aliases: null,
+  item: null,
 };

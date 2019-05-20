@@ -19,80 +19,83 @@ const CharacterAddForm = ({
             htmlFor="name"
           >
             Name
+            <input
+              name="name"
+              type="text"
+              value={nameValue}
+              className="form-control"
+              id="name"
+              placeholder="Enter name"
+              onChange={onChangeFormValue}
+            />
           </label>
-          <input
-            name="name"
-            type="text"
-            value={nameValue}
-            className="form-control"
-            id="name"
-            placeholder="Enter name"
-            onChange={onChangeFormValue}
-          />
         </div>
         <div className="form-group">
-          <label htmlFor="exampleSelect1">
-            Gender
-          </label>
-          <select
-            name="gender"
-            className="form-control"
-            id="exampleSelect1"
-            value={genderValue}
-            onChange={onChangeFormValue}
+          <div
+            htmlFor="gender"
           >
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Dragon">Dragon</option>
-          </select>
+            Gender
+            <select
+              name="gender"
+              className="form-control"
+              id="gender"
+              value={genderValue}
+              onChange={onChangeFormValue}
+            >
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Dragon">Dragon</option>
+            </select>
+          </div>
         </div>
         <div className="form-group">
           <label
             htmlFor="culture"
           >
             Culture
+            <input
+              name="culture"
+              type="text"
+              value={cultureValue}
+              className="form-control"
+              id="culture"
+              placeholder="Enter culture"
+              onChange={onChangeFormValue}
+            />
           </label>
-          <input
-            name="culture"
-            type="text"
-            value={cultureValue}
-            className="form-control"
-            id="culture"
-            placeholder="Enter culture"
-            onChange={onChangeFormValue}
-          />
         </div>
         <div className="form-group">
           <label
             htmlFor="playeBby"
           >
             Played by
+
+            <input
+              name="playedBy"
+              type="text"
+              value={playedByValue}
+              className="form-control"
+              id="playeBby"
+              placeholder="Played by:"
+              onChange={onChangeFormValue}
+            />
           </label>
-          <input
-            name="playedBy"
-            type="text"
-            value={playedByValue}
-            className="form-control"
-            id="playeBby"
-            placeholder="Played by:"
-            onChange={onChangeFormValue}
-          />
         </div>
         <div className="form-group">
           <label
             htmlFor="characterPicture"
           >
             Character picture
+            <input
+              name="characterPicture"
+              type="text"
+              value={characterPictureValue}
+              className="form-control"
+              id="characterPicture"
+              placeholder="Enter URl"
+              onChange={onChangeFormValue}
+            />
           </label>
-          <input
-            name="characterPicture"
-            type="text"
-            value={characterPictureValue}
-            className="form-control"
-            id="characterPicture"
-            placeholder="Enter URl"
-            onChange={onChangeFormValue}
-          />
         </div>
         <button
           type="button"
@@ -109,5 +112,11 @@ const CharacterAddForm = ({
 export default CharacterAddForm;
 
 CharacterAddForm.propTypes = {
+  genderValue: PropTypes.string.isRequired,
+  nameValue: PropTypes.string.isRequired,
+  cultureValue: PropTypes.string.isRequired,
+  playedByValue: PropTypes.string.isRequired,
+  characterPictureValue: PropTypes.string.isRequired,
   onChangeFormValue: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };

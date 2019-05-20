@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { imagesPerson } from 'images';
 import Header from 'components/header';
@@ -74,3 +75,14 @@ const App = ({
   </Router>
 );
 export default App;
+
+App.propTypes = {
+  showRamdomHouse: PropTypes.bool.isRequired,
+  stateOfForm: PropTypes.object.isRequired,
+  formFunctions: PropTypes.object.isRequired,
+  peopleListState: PropTypes.array.isRequired,
+  itemFunctions: PropTypes.object.isRequired,
+  recordFunctions: PropTypes.object.isRequired,
+  itemDetailsdFunctions: PropTypes.object.isRequired,
+  onToggleRandomHouse: PropTypes.func.isRequired,
+};

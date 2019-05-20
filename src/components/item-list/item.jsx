@@ -40,8 +40,9 @@ export default class Item extends React.Component {
 }
 
 Item.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   lable: PropTypes.string.isRequired,
-  onItemSelected: PropTypes.string.isRequired,
+  onItemSelected: PropTypes.func.isRequired,
+  onDeleteItem: PropTypes.func.isRequired,
 };

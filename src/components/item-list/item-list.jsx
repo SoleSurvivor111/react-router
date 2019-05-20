@@ -26,6 +26,7 @@ export default class ItemList extends Component {
       const lable = children(item);
       return (
         <Item
+          key={id}
           onItemSelected={onItemSelected}
           id={id}
           lable={lable}
@@ -49,11 +50,10 @@ export default class ItemList extends Component {
   }
 }
 ItemList.propTypes = {
+  itemList: PropTypes.array.isRequired,
+  itemFunctions: PropTypes.object.isRequired,
   searchValue: PropTypes.string.isRequired,
   children: PropTypes.func.isRequired,
   checkedValues: PropTypes.func.isRequired,
   onItemSelected: PropTypes.func.isRequired,
 };
-const arr = ['abc', 'jbl'];
-
-console.log(_.some(arr, 'abc'));

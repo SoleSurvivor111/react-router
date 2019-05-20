@@ -50,10 +50,15 @@ const peopleList = (state = initialState, action) => {
     case CHANGE_PROPERTY:
       return {
         ...state,
-        people: state.people.map(i => ({
-          ...i,
-          [action.payload.fieldName]: action.payload.value,
-        })),
+        people: state.people.map((i) => {
+          if (i.id === action.payload.id) {
+            return {
+              ...i,
+              [action.payload.fieldName]: action.payload.value,
+            };
+          }
+          return i;
+        }),
       };
     default:
       return state;

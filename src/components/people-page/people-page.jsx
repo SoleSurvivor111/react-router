@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import ThroneService from 'services/throne-service';
 import CharacterAddForm from 'components/character-add-form/character-add-form';
 import ItemList from 'components/item-list';
 import ErrorIndicator from 'components/error-indicator';
@@ -10,8 +10,6 @@ import 'components/people-page/people-page.css';
 
 
 class PeoplePage extends Component {
-  throneService = new ThroneService();
-
   state = {
     hasError: null,
   }
@@ -87,4 +85,8 @@ export default withRouter(PeoplePage);
 PeoplePage.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
   location: ReactRouterPropTypes.location.isRequired,
+  stateOfForm: PropTypes.object.isRequired,
+  formFunctions: PropTypes.object.isRequired,
+  peopleListState: PropTypes.array.isRequired,
+  itemFunctions: PropTypes.object.isRequired,
 };

@@ -18,8 +18,9 @@ export class Record extends React.Component {
     const {
       onChangeProperty,
       field,
+      item,
     } = this.props;
-    onChangeProperty(e, field);
+    onChangeProperty(e, field, item.id);
     this.setState({
       isEditInput: false,
     });
@@ -49,6 +50,7 @@ export class Record extends React.Component {
       <li
         className="list-group-item"
         onDoubleClick={this.handleAddEditInput}
+        key={item.id}
       >
         <span
           className="term"
@@ -66,12 +68,13 @@ Record.propTypes = {
   item: PropTypes.object,
   field: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  onChangeProperty: PropTypes.func.isRequired,
 };
 
 Record.defaultProps = {
   item: null,
 };
-const PersonDetails = ({ children, getData, onChangeProperty }) => (
+const ItemDetails = ({ children, getData, onChangeProperty }) => (
   <div className="person-details card">
     <Content
       {...getData}
@@ -80,13 +83,14 @@ const PersonDetails = ({ children, getData, onChangeProperty }) => (
     />
   </div>
 );
-export default PersonDetails;
+export default ItemDetails;
 
-PersonDetails.propTypes = {
+ItemDetails.propTypes = {
   getData: PropTypes.object.isRequired,
   children: PropTypes.node,
+  onChangeProperty: PropTypes.func.isRequired,
 };
 
-PersonDetails.defaultProps = {
+ItemDetails.defaultProps = {
   children: null,
 };

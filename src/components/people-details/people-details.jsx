@@ -35,6 +35,8 @@ export default PersonDetails;
 
 PersonDetails.propTypes = {
   itemId: PropTypes.string.isRequired,
-  getPerson: PropTypes.func.isRequired,
+  getPerson: PropTypes.object.isRequired,
+  recordFunctions: PropTypes.object.isRequired,
+  itemDetailsdFunctions: PropTypes.object.isRequired,
   getPersonImage: PropTypes.func.isRequired,
 };
