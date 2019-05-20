@@ -4,7 +4,7 @@ import {
   DELETE_ITEM,
   CHANGE_PROPERTY,
 } from 'const';
-import some from 'lodash/some';
+import _ from 'lodash';
 import { v4 } from 'node-uuid';
 
 const addFormInitialState = {
@@ -23,8 +23,22 @@ const initialState = {
 const peopleList = (state = initialState, action) => {
   switch (action.type) {
     case ADD_ITEM: {
-      if (some(state.addCharacterForm, i => i.value === '')) {
-        return state;
+      if (_.some(state.addCharacterForm, i => i.value === '')) {
+        return {
+          ...state,
+          addCharacterForm: _.mapValues(state.addCharacterForm, (i) => {
+            if (i.value === '') {
+              return {
+                ...i,
+                error: 'fields must not be empty',
+              };
+            }
+            return {
+              ...i,
+              error: '',
+            };
+          }),
+        };
       }
       return {
         ...state,

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import 'components/character-add-form/character-add-form.css';
 
 const CharacterAddForm = ({
   gender,
@@ -29,6 +30,13 @@ const CharacterAddForm = ({
               onChange={onChangeFormValue}
             />
           </label>
+          {name.error && (
+          <div
+            className="invalid-feedback"
+          >
+            {name.error}
+          </div>
+          )}
         </div>
         <div className="form-group">
           <div
@@ -46,6 +54,13 @@ const CharacterAddForm = ({
               <option value="Female">Female</option>
               <option value="Dragon">Dragon</option>
             </select>
+            {gender.error && (
+            <div
+              className="invalid-feedback"
+            >
+              {gender.error}
+            </div>
+            )}
           </div>
         </div>
         <div className="form-group">
@@ -63,13 +78,19 @@ const CharacterAddForm = ({
               onChange={onChangeFormValue}
             />
           </label>
+          {culture.error && (
+          <div
+            className="invalid-feedback"
+          >
+            {culture.error}
+          </div>
+          )}
         </div>
         <div className="form-group">
           <label
             htmlFor="playeBby"
           >
             Played by
-
             <input
               name="playedBy"
               type="text"
@@ -80,6 +101,13 @@ const CharacterAddForm = ({
               onChange={onChangeFormValue}
             />
           </label>
+          {playedBy.error && (
+          <div
+            className="invalid-feedback"
+          >
+            {playedBy.error}
+          </div>
+          )}
         </div>
         <div className="form-group">
           <label
@@ -96,6 +124,13 @@ const CharacterAddForm = ({
               onChange={onChangeFormValue}
             />
           </label>
+          {characterPicture.error && (
+          <div
+            className="invalid-feedback"
+          >
+            {characterPicture.error}
+          </div>
+          )}
         </div>
         <button
           type="button"

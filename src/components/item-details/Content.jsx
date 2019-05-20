@@ -73,21 +73,10 @@ class Content extends React.Component {
 export default Content;
 
 Content.propTypes = {
-  name: PropTypes.string.isRequired,
-  characterPicture: PropTypes.string.isRequired,
+  name: PropTypes.object.isRequired,
+  characterPicture: PropTypes.object.isRequired,
   item: PropTypes.object,
-  childrenArr: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-    region: PropTypes.string,
-    coatOfArms: PropTypes.string,
-    seats: PropTypes.string,
-    aliases: PropTypes.string,
-    gender: PropTypes.string,
-    born: PropTypes.string,
-    culture: PropTypes.string,
-    playedBy: PropTypes.string,
-  })).isRequired,
+  childrenArr: PropTypes.array.isRequired,
   id: PropTypes.string.isRequired,
   onChangeProperty: PropTypes.func.isRequired,
 };
