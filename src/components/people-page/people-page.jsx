@@ -64,10 +64,12 @@ class PeoplePage extends Component {
           onItemSelected={this.handlePersonSelected}
           itemList={peopleListState}
           searchValue={this.getParams().query}
-          checkedValues={i => [i.name, i.gender]}
+          checkedValues={i => [
+            i.name.value.toLowerCase(), i.gender.value.toLowerCase(),
+          ]}
           itemFunctions={itemFunctions}
         >
-          {i => `${i.name} (${i.gender})`}
+          {i => `${i.name.value} (${i.gender.value})`}
         </ItemList>
         <h3>Search</h3>
         <input

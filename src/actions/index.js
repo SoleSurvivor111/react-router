@@ -1,6 +1,6 @@
 import {
   TOGGLE_RANDOM_HOUSE,
-  ADD_PERSON,
+  ADD_ITEM,
   CHANGE_FORM_VALUE,
   DELETE_ITEM,
   CHANGE_PROPERTY,
@@ -19,7 +19,7 @@ export const changeFormValue = e => ({
 });
 
 export const submit = () => ({
-  type: ADD_PERSON,
+  type: ADD_ITEM,
 });
 
 export const deleteItem = id => ({

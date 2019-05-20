@@ -34,14 +34,14 @@ export class Record extends React.Component {
     } = this.props;
     const { isEditInput } = this.state;
     const value = !isEditInput && (
-    <span>{item[field]}</span>
+    <span>{item[field].value}</span>
     );
     const editInput = isEditInput
       && (
       <input
         type="text"
         className="form-control form-control-sm"
-        defaultValue={item[field]}
+        defaultValue={item[field].value}
         autoFocus
         onBlur={this.handleDeleteItem}
       />

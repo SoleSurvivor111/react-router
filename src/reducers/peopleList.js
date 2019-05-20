@@ -1,5 +1,5 @@
 import {
-  ADD_PERSON,
+  ADD_ITEM,
   CHANGE_FORM_VALUE,
   DELETE_ITEM,
   CHANGE_PROPERTY,
@@ -8,11 +8,11 @@ import some from 'lodash/some';
 import { v4 } from 'node-uuid';
 
 const addFormInitialState = {
-  name: '',
-  gender: 'Male',
-  culture: '',
-  playedBy: '',
-  characterPicture: '',
+  name: { value: '', error: '' },
+  gender: { value: 'Male', error: '' },
+  culture: { value: '', error: '' },
+  playedBy: { value: '', error: '' },
+  characterPicture: { value: '', error: '' },
 };
 
 const initialState = {
@@ -22,8 +22,8 @@ const initialState = {
 
 const peopleList = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_PERSON: {
-      if (some(state.addCharacterForm, i => i === '')) {
+    case ADD_ITEM: {
+      if (some(state.addCharacterForm, i => i.value === '')) {
         return state;
       }
       return {
@@ -39,7 +39,10 @@ const peopleList = (state = initialState, action) => {
         ...state,
         addCharacterForm: {
           ...state.addCharacterForm,
-          [action.payload.fieldName]: action.payload.value,
+          [action.payload.fieldName]: {
+            ...state.addCharacterForm[action.payload.fieldName],
+            value: action.payload.value,
+          },
         },
       };
     case DELETE_ITEM:
@@ -54,7 +57,10 @@ const peopleList = (state = initialState, action) => {
           if (i.id === action.payload.id) {
             return {
               ...i,
-              [action.payload.fieldName]: action.payload.value,
+              [action.payload.fieldName]: {
+                ...[action.payload.fieldName],
+                value: action.payload.value,
+              },
             };
           }
           return i;

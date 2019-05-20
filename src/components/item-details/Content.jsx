@@ -35,17 +35,17 @@ class Content extends React.Component {
     return (
       <React.Fragment>
         <img
-          alt={name}
+          alt={name.value}
           className="person-image"
-          src={characterPicture.match(urlCheckExpression) || 'https://ndab.niledutch.com/NileDutch/api_imageviewer.php?contactid=520'}
-          title={name}
+          src={characterPicture.value.match(urlCheckExpression) || 'https://ndab.niledutch.com/NileDutch/api_imageviewer.php?contactid=520'}
+          title={name.value}
         />
         <div className="card-body">
           {!isEditInput && (
             <h4
               onDoubleClick={this.handleAddEditInput}
             >
-              {name || 'Enter name'}
+              {name.value || 'Enter name'}
             </h4>
           )}
           {isEditInput
@@ -53,7 +53,7 @@ class Content extends React.Component {
             <input
               type="text"
               className="form-control form-control-sm"
-              defaultValue={name}
+              defaultValue={name.value}
               autoFocus
               onBlur={this.handleDeleteEditInput}
             />

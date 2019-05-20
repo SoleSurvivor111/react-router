@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CharacterAddForm = ({
-  genderValue,
-  nameValue,
-  cultureValue,
-  playedByValue,
+  gender,
+  name,
+  culture,
+  playedBy,
   onChangeFormValue,
-  characterPictureValue,
+  characterPicture,
   onSubmit,
 }) => (
   <form className="d-flex flex-column align-content-center">
@@ -22,7 +22,7 @@ const CharacterAddForm = ({
             <input
               name="name"
               type="text"
-              value={nameValue}
+              value={name.value}
               className="form-control"
               id="name"
               placeholder="Enter name"
@@ -39,7 +39,7 @@ const CharacterAddForm = ({
               name="gender"
               className="form-control"
               id="gender"
-              value={genderValue}
+              value={gender.value}
               onChange={onChangeFormValue}
             >
               <option value="Male">Male</option>
@@ -56,7 +56,7 @@ const CharacterAddForm = ({
             <input
               name="culture"
               type="text"
-              value={cultureValue}
+              value={culture.value}
               className="form-control"
               id="culture"
               placeholder="Enter culture"
@@ -73,7 +73,7 @@ const CharacterAddForm = ({
             <input
               name="playedBy"
               type="text"
-              value={playedByValue}
+              value={playedBy.value}
               className="form-control"
               id="playeBby"
               placeholder="Played by:"
@@ -89,7 +89,7 @@ const CharacterAddForm = ({
             <input
               name="characterPicture"
               type="text"
-              value={characterPictureValue}
+              value={characterPicture.value}
               className="form-control"
               id="characterPicture"
               placeholder="Enter URl"
@@ -112,11 +112,11 @@ const CharacterAddForm = ({
 export default CharacterAddForm;
 
 CharacterAddForm.propTypes = {
-  genderValue: PropTypes.string.isRequired,
-  nameValue: PropTypes.string.isRequired,
-  cultureValue: PropTypes.string.isRequired,
-  playedByValue: PropTypes.string.isRequired,
-  characterPictureValue: PropTypes.string.isRequired,
+  gender: PropTypes.object.isRequired,
+  name: PropTypes.object.isRequired,
+  culture: PropTypes.object.isRequired,
+  playedBy: PropTypes.object.isRequired,
+  characterPicture: PropTypes.object.isRequired,
   onChangeFormValue: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };

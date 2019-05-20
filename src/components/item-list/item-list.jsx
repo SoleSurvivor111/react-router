@@ -15,7 +15,7 @@ export default class ItemList extends Component {
     const filteredArr = arr.filter(
       (i) => {
         const values = checkedValues(i);
-        return _.some(values, str => str.includes(searchValue));
+        return _.some(values, str => str.includes(searchValue.toLowerCase()));
       },
     );
     return filteredArr.map((item, index) => {

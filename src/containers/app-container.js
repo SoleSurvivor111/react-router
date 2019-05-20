@@ -39,11 +39,11 @@ const mapStateToProps = (state) => {
   return {
     showRamdomHouse: state.showRandomHouse,
     stateOfForm: {
-      genderValue: gender,
-      nameValue: name,
-      cultureValue: culture,
-      playedByValue: playedBy,
-      characterPictureValue: characterPicture,
+      gender,
+      name,
+      culture,
+      playedBy,
+      characterPicture,
     },
     peopleListState: state.peopleList.people,
   };
