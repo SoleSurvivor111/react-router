@@ -19,8 +19,8 @@ export default class ThroneService {
   }
 
   getBook = async (id) => {
-    const res = await this.getResource(`/books/${id}/`);
-    return res.map(this._transformBook);
+    const book = await this.getResource(`/books/${id}/`);
+    return this._transformBook(book);
   }
 
   getAllPeople = async () => {
@@ -74,11 +74,10 @@ export default class ThroneService {
 
   _transformPerson = person => ({
     id: this._extractId(person),
-    name: person.name,
-    aliases: person.aliases,
+    name: person.name || person.aliases[0],
     gender: person.gender,
     born: person.born,
     culture: person.culture,
-    playedBy: person.playedBy,
+    playedBy: person.playedBy[0],
   })
 }

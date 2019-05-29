@@ -3,7 +3,17 @@ import ThroneService from 'services/throne-service';
 import 'components/item-details/item-details.css';
 import Spinner from 'components/spinner';
 
-export default class PersonDetails extends Component {
+const Record = ({ item, field, label }) => (
+  <li className="list-group-item">
+    <span className="term">{`${label}`}</span>
+    <span>{item[field] || 'no'}</span>
+  </li>
+);
+export {
+  Record,
+};
+
+export default class ItemDetails extends Component {
   throneService = new ThroneService();
 
   state ={
@@ -49,13 +59,17 @@ export default class PersonDetails extends Component {
 
   render() {
     const { item, loading, image } = this.state;
+    const {
+      itemId,
+      children,
+    } = this.props;
     if (!item) {
       return <span>Select a person from the list</span>;
     }
     const content = !loading ? (
       <Content
         {...item}
-        itemId={this.props.itemId}
+        itemId={itemId}
         image={image}
       />
     )
@@ -63,7 +77,22 @@ export default class PersonDetails extends Component {
     const spinner = loading ? <Spinner /> : null;
     return (
       <div className="person-details card">
-        {content}
+        <img
+          alt={item.name}
+          className="person-image"
+          src={image}
+          title={item.name}
+        />
+        <div className="card-body">
+          <h4>{item.name}</h4>
+          <ul className="list-group list-group-flush">
+            {
+              React.Children.map(
+                children, child => React.cloneElement(child, { item }),
+              )
+            }
+          </ul>
+        </div>
         {spinner}
       </div>
     );
@@ -82,32 +111,23 @@ const Content = ({
   image,
 }) => (
   <React.Fragment>
-    <img
-      alt={aliases[0] || name}
-      className="person-image"
-      src={image}
-      title={aliases[0] || name}
-    />
-    <div className="card-body">
-      <h4>{aliases[0] || name}</h4>
-      <ul className="list-group list-group-flush">
-        <li className="list-group-item">
-          <span className="term">Gender:</span>
-          <span>{gender}</span>
-        </li>
-        <li className="list-group-item">
-          <span className="term">Birth Year:</span>
-          <span>{born || 'no'}</span>
-        </li>
-        <li className="list-group-item">
-          <span className="term">Culture:</span>
-          <span>{culture || 'no'}</span>
-        </li>
-        <li className="list-group-item">
-          <span className="term">Played by:</span>
-          <span>{playedBy[0] || 'no'}</span>
-        </li>
-      </ul>
-    </div>
+
   </React.Fragment>
 );
+
+// <li className="list-group-item">
+//   <span className="term">Gender:</span>
+//   <span>{gender}</span>
+// </li>
+// <li className="list-group-item">
+//   <span className="term">Birth Year:</span>
+//   <span>{born || 'no'}</span>
+// </li>
+// <li className="list-group-item">
+//   <span className="term">Culture:</span>
+//   <span>{culture || 'no'}</span>
+// </li>
+// <li className="list-group-item">
+//   <span className="term">Played by:</span>
+//   <span>{ 'no'}</span>
+// </li>

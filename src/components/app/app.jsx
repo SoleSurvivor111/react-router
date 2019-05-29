@@ -3,7 +3,15 @@ import ThroneService from 'services/throne-service';
 import Header from 'components/header';
 import RandomHouse from 'components/random-house';
 import PeoplePage from 'components/people-page';
-import ItemDetails from 'components/item-details';
+import ItemDetails, { Record } from 'components/item-details/item-details';
+import {
+  PersonDetails,
+  BookDetails,
+  HouseDetails,
+  PersonList,
+  BookList,
+  HouseList,
+} from 'components/got-components';
 import Row from 'components/row';
 import 'components/app/app.css';
 
@@ -29,14 +37,26 @@ export default class App extends Component {
         itemId={5}
         getData={getPerson}
         getImageUrl={this.throneService.getPersonImage}
-      />
+      >
+        <Record field="gender" label="Gender" />
+        <Record field="culture" label="Culture" />
+        <Record field="playedBy" label="Played by:" />
+      </ItemDetails>
     );
     const bookDetails = (
       <ItemDetails
         itemId={5}
-        getData={getPerson}
+        getData={getBook}
         getImageUrl={this.throneService.getPersonImage}
-      />
+      >
+        <Record field="authors" label="Authors:" />
+        <Record field="isbn" label="Isbn:" />
+        <Record field="numberOfPages" label="Number of Pages:" />
+        <Record field="publisher" label="Publisher:" />
+        <Record field="country" label="Country:" />
+        <Record field="mediaType" label="Media type:" />
+        <Record field="released" label="Released:" />
+      </ItemDetails>
     );
     return (
       <div className="container">
@@ -49,7 +69,11 @@ export default class App extends Component {
         >
           Toggle Random Planet
         </button>
-        <PeoplePage />
+
+        <PersonList>
+          {({ name }) => (<span>{name}</span>)}
+        </PersonList>
+
         <Row
           left={personDetails}
           right={bookDetails}
