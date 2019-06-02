@@ -49,6 +49,7 @@ class PeoplePage extends Component {
       formFunctions,
       peopleListState,
       itemFunctions,
+      itemListFunctions,
     } = this.props;
     if (hasError) {
       return <ErrorIndicator />;
@@ -63,6 +64,7 @@ class PeoplePage extends Component {
         <ItemList
           onItemSelected={this.handlePersonSelected}
           itemList={peopleListState}
+          {...itemListFunctions}
           searchValue={this.getParams().query}
           checkedValues={i => [
             i.name.value.toLowerCase(), i.gender.value.toLowerCase(),

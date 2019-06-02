@@ -22,7 +22,7 @@ module.exports = {
       "jsx-a11y/no-autofocus": false,
       "react/forbid-prop-types": 0,
       "jsx-a11y/click-events-have-key-events": 0,
-      "no-underscore-dangl": 0
+      "no-underscore-dangle": 0
     },
   "settings": {
     "import/resolver": {

@@ -1,15 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
-import rootReducer from 'reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import debounce from 'lodash/debounce';
+import rootReducer from 'reducers';
+import rootSaga from 'sagas';
 import { loadState, saveState } from 'localStoreage';
 import AppContainer from 'containers/app-container';
 
 const persistedState = loadState();
-const store = createStore(rootReducer, persistedState, composeWithDevTools());
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+  rootReducer,
+  persistedState,
+  composeWithDevTools(applyMiddleware(sagaMiddleware)),
+);
+sagaMiddleware.run(rootSaga);
 
 store.subscribe(debounce(() => {
   saveState({

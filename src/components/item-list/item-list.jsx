@@ -5,6 +5,11 @@ import Item from 'components/item-list/item';
 import 'components/item-list/item-list.css';
 
 export default class ItemList extends Component {
+  componentDidMount() {
+    const { onGetAllPeople, itemList } = this.props;
+    if (!itemList.length)onGetAllPeople();
+  }
+
   renderItems(arr) {
     const {
       searchValue,
@@ -54,6 +59,7 @@ ItemList.propTypes = {
   itemFunctions: PropTypes.object.isRequired,
   searchValue: PropTypes.string.isRequired,
   children: PropTypes.func.isRequired,
+  onGetAllPeople: PropTypes.func.isRequired,
   checkedValues: PropTypes.func.isRequired,
   onItemSelected: PropTypes.func.isRequired,
 };

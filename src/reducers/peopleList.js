@@ -3,6 +3,7 @@ import {
   CHANGE_FORM_VALUE,
   DELETE_ITEM,
   CHANGE_PROPERTY,
+  PEOPLE_RECEIVED,
 } from 'const';
 import _ from 'lodash';
 import { v4 } from 'node-uuid';
@@ -79,6 +80,14 @@ const peopleList = (state = initialState, action) => {
           }
           return i;
         }),
+      };
+    case PEOPLE_RECEIVED:
+      return {
+        ...state,
+        people: [
+          ...state.people,
+          ...action.payload.people,
+        ],
       };
     default:
       return state;

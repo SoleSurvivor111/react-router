@@ -74,8 +74,7 @@ export default class ThroneService {
 
   _transformPerson = person => ({
     id: this._extractId(person),
-    name: person.name,
-    aliases: person.aliases[0],
+    name: person.name || person.aliases[0],
     gender: person.gender,
     born: person.born || 'no',
     culture: person.culture || 'no',

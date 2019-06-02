@@ -9,7 +9,7 @@ import PeopleDetails from 'components/people-details';
 import 'components/app/app.css';
 
 const App = ({
-  showRamdomHouse,
+  showRandomHouse,
   stateOfForm,
   formFunctions,
   peopleListState,
@@ -17,11 +17,12 @@ const App = ({
   recordFunctions,
   onToggleRandomHouse,
   itemDetailsdFunctions,
+  itemListFunctions,
 }) => (
   <Router>
     <div className="container">
       <Header />
-      {showRamdomHouse && <RandomHouse />}
+      {showRandomHouse && <RandomHouse />}
       <button
         type="button"
         className="toggle-planet btn btn-warning btn-lg"
@@ -50,6 +51,7 @@ const App = ({
               formFunctions={formFunctions}
               peopleListState={peopleListState}
               itemFunctions={itemFunctions}
+              itemListFunctions={itemListFunctions}
             />
           )}
           exact
@@ -77,7 +79,7 @@ const App = ({
 export default App;
 
 App.propTypes = {
-  showRamdomHouse: PropTypes.bool.isRequired,
+  showRandomHouse: PropTypes.bool.isRequired,
   stateOfForm: PropTypes.object.isRequired,
   formFunctions: PropTypes.object.isRequired,
   peopleListState: PropTypes.array.isRequired,
