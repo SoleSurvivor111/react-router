@@ -1,6 +1,8 @@
 import { takeLatest, put } from 'redux-saga/effects';
 import {
   GET_ALL_PEOPLE,
+  PEOPLE_RECEIVED,
+  PEOPLE_REQUEST_FAILED,
 } from 'const';
 import { v4 } from 'node-uuid';
 
@@ -24,13 +26,13 @@ function* getAllPeople() {
   try {
     const people = yield getResource('/characters/').next().value;
     yield put({
-      type: 'PEOPLE_RECEIVED',
+      type: PEOPLE_RECEIVED,
       payload: {
         people: people.map(_transformPerson),
       },
     });
   } catch (error) {
-    yield put({ type: 'PEOPLE_REQUEST_FAILED', error });
+    yield put({ type: PEOPLE_REQUEST_FAILED, error });
   }
 }
 
