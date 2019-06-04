@@ -40,13 +40,19 @@ class PeoplePage extends Component {
     history.push(`?${url}`);
   }
 
+  getInitialValues = {
+    name: '',
+    gender: '',
+    culture: '',
+    playedBy: '',
+    characterPicture: '',
+  };
+
   render() {
     const {
       hasError,
     } = this.state;
     const {
-      stateOfForm,
-      formFunctions,
       peopleListState,
       itemFunctions,
       itemListFunctions,
@@ -86,9 +92,7 @@ export default withRouter(PeoplePage);
 PeoplePage.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
   location: ReactRouterPropTypes.location.isRequired,
-  stateOfForm: PropTypes.object.isRequired,
   itemListFunctions: PropTypes.object.isRequired,
-  formFunctions: PropTypes.object.isRequired,
   peopleListState: PropTypes.array.isRequired,
   itemFunctions: PropTypes.object.isRequired,
 };

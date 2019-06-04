@@ -1,85 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { required } from 'const/validate';
+import { required, url } from 'redux-form-validators';
+import Input from 'components/character-add-form/input';
+import Select from 'components/character-add-form/select';
 import 'components/character-add-form/character-add-form.css';
 
-const Input = ({
-  input,
-  name,
-  placeholder,
-  label,
-  type,
-  meta: {
-    touched,
-    error,
-    warning,
-  },
-}) => (
-  <div className="form-group">
-    <label
-      htmlFor={name}
-    >
-      {label}
-      <input
-        {...input}
-        id={name}
-        placeholder={placeholder}
-        className="form-control"
-        type={type}
-      />
-    </label>
-    {touched
-      && ((error || warning) && (
-      <div
-        className="invalid-feedback"
-      >
-        {error || warning}
-      </div>
-      ))}
-  </div>
-);
-const Select = ({
-  input,
-  name,
-  placeholder,
-  label,
-  type,
-  value,
-  meta: {
-    touched,
-    error,
-    warning,
-  },
-}) => (
-  <div className="form-group">
-    <div
-      htmlFor={name}
-    >
-      Gender
-      <select
-        {...input}
-        value={value}
-        className="form-control"
-        component="select"
-      >
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Dragon">Dragon</option>
-      </select>
-      {touched
-        && ((error || warning) && (
-        <div
-          className="invalid-feedback"
-        >
-          {error || warning}
-        </div>
-        ))}
-    </div>
-  </div>
-);
-
-
+const getInitialValues = {
+  name: '',
+  gender: 'Male',
+  culture: '',
+  playedBy: '',
+  characterPicture: '',
+};
 const CharacterAddForm = () => (
   <form className="d-flex flex-column align-content-center">
     <fieldset className="border border-success rounded">
@@ -91,16 +23,14 @@ const CharacterAddForm = () => (
           type="text"
           placeholder="Enter name"
           label="Name"
-          validate={[required]}
+          validate={[required()]}
         />
         <Field
           name="gender"
           component={Select}
-          type="text"
-          placeholder="Enter name"
           label="Gender"
           value="Male"
-          validate={[required]}
+          validate={[required()]}
         />
         <Field
           name="culture"
@@ -108,7 +38,7 @@ const CharacterAddForm = () => (
           type="text"
           placeholder="Enter culture"
           label="Culture"
-          validate={[required]}
+          validate={[required()]}
         />
         <Field
           name="playeBby"
@@ -116,7 +46,7 @@ const CharacterAddForm = () => (
           type="text"
           placeholder="Played by:"
           label="Played by:"
-          validate={[required]}
+          validate={[required()]}
         />
         <Field
           name="characterPicture"
@@ -124,7 +54,7 @@ const CharacterAddForm = () => (
           type="text"
           placeholder="Enter URl"
           label="Character picture"
-          validate={[required]}
+          validate={[required(), url()]}
         />
         <button
           type="button"
@@ -138,4 +68,7 @@ const CharacterAddForm = () => (
     </fieldset>
   </form>
 );
-export default reduxForm({ form: 'characterAddForm' })(CharacterAddForm);
+export default reduxForm({
+  form: 'characterAddForm',
+  initialValues: getInitialValues,
+})(CharacterAddForm);
