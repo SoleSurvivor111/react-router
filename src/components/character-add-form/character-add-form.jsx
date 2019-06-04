@@ -1,18 +1,29 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { required, url } from 'redux-form-validators';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {
+  Field,
+  reduxForm,
+  isValid,
+  getFormValues,
+} from 'redux-form';
+import {
+  required,
+  url,
+  length,
+} from 'redux-form-validators';
+import {
+  InitialValues,
+} from 'const';
 import Input from 'components/character-add-form/input';
 import Select from 'components/character-add-form/select';
 import 'components/character-add-form/character-add-form.css';
 
-const getInitialValues = {
-  name: '',
-  gender: 'Male',
-  culture: '',
-  playedBy: '',
-  characterPicture: '',
-};
-const CharacterAddForm = () => (
+const CharacterAddForm = ({
+  valid,
+  values,
+  onSubmit,
+}) => (
   <form className="d-flex flex-column align-content-center">
     <fieldset className="border border-success rounded">
       <legend className="text-center">Add character</legend>
@@ -23,7 +34,7 @@ const CharacterAddForm = () => (
           type="text"
           placeholder="Enter name"
           label="Name"
-          validate={[required()]}
+          validate={[required(), length({ minimum: 5 })]}
         />
         <Field
           name="gender"
@@ -41,7 +52,7 @@ const CharacterAddForm = () => (
           validate={[required()]}
         />
         <Field
-          name="playeBby"
+          name="playedBy"
           component={Input}
           type="text"
           placeholder="Played by:"
@@ -59,8 +70,8 @@ const CharacterAddForm = () => (
         <button
           type="button"
           className="btn btn-success"
-          // onClick={onSubmit}
-          disabled={false}
+          onClick={() => onSubmit(values)}
+          disabled={!valid}
         >
           Submit
         </button>
@@ -70,5 +81,16 @@ const CharacterAddForm = () => (
 );
 export default reduxForm({
   form: 'characterAddForm',
-  initialValues: getInitialValues,
-})(CharacterAddForm);
+  initialValues: InitialValues,
+})(connect(state => ({
+  values: getFormValues('characterAddForm')(state),
+  valid: isValid('characterAddForm')(state),
+}))(CharacterAddForm));
+
+CharacterAddForm.propTypes = {
+  valid: PropTypes.bool,
+};
+
+CharacterAddForm.defaultProps = {
+  valid: null,
+};

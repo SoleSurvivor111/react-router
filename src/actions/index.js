@@ -10,8 +10,15 @@ export const toggleRandomHouse = () => ({
   type: TOGGLE_RANDOM_HOUSE,
 });
 
-export const submit = () => ({
+export const submit = values => ({
   type: ADD_ITEM,
+  payload: {
+    name: { value: values.name },
+    gender: { value: values.gender },
+    culture: { value: values.culture },
+    playedBy: { value: values.playedBy },
+    characterPicture: { value: values.characterPicture },
+  },
 });
 
 export const deleteItem = id => ({

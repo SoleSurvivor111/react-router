@@ -24,6 +24,7 @@ store.subscribe(debounce(() => {
   saveState({
     showRandomHouse: store.getState().showRandomHouse,
     peopleList: store.getState().peopleList,
+    form: store.getState().form,
   });
 }, 500));
 ReactDOM.render(

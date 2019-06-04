@@ -56,13 +56,16 @@ class PeoplePage extends Component {
       peopleListState,
       itemFunctions,
       itemListFunctions,
+      formFunctions,
     } = this.props;
     if (hasError) {
       return <ErrorIndicator />;
     }
     return (
       <ErrorBoundry>
-        <CharacterAddForm />
+        <CharacterAddForm
+          {...formFunctions}
+        />
         <h2>People</h2>
         <ItemList
           onItemSelected={this.handlePersonSelected}
@@ -93,6 +96,7 @@ PeoplePage.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
   location: ReactRouterPropTypes.location.isRequired,
   itemListFunctions: PropTypes.object.isRequired,
+  formFunctions: PropTypes.object.isRequired,
   peopleListState: PropTypes.array.isRequired,
   itemFunctions: PropTypes.object.isRequired,
 };

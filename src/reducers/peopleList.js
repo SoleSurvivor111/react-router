@@ -4,50 +4,24 @@ import {
   CHANGE_PROPERTY,
   PEOPLE_RECEIVED,
 } from 'const';
-import _ from 'lodash';
 import { v4 } from 'node-uuid';
 
-const addFormInitialState = {
-  name: { value: '', error: '' },
-  gender: { value: 'Male', error: '' },
-  culture: { value: '', error: '' },
-  playedBy: { value: '', error: '' },
-  characterPicture: { value: '', error: '' },
-};
 
 const initialState = {
-  addCharacterForm: addFormInitialState,
   people: [],
 };
 
 const peopleList = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_ITEM: {
-      if (_.some(state.addCharacterForm, i => i.value === '')) {
-        return {
-          ...state,
-          addCharacterForm: _.mapValues(state.addCharacterForm, (i) => {
-            if (i.value === '') {
-              return {
-                ...i,
-                error: 'fields must not be empty',
-              };
-            }
-            return {
-              ...i,
-              error: '',
-            };
-          }),
-        };
-      }
+    case ADD_ITEM:
       return {
         ...state,
         people: [...state.people,
-          { ...state.addCharacterForm, id: v4() },
+          {
+            ...action.payload, id: v4(),
+          },
         ],
-        addCharacterForm: addFormInitialState,
       };
-    }
     case DELETE_ITEM:
       return {
         ...state,

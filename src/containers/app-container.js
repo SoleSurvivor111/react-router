@@ -7,7 +7,6 @@ import { createSelector } from 'reselect';
 const mapDispatchToProps = (disathch) => {
   const {
     toggleRandomHouse: onToggleRandomHouse,
-    changeFormValue: onChangeFormValue,
     submit: onSubmit,
     deleteItem: onDeleteItem,
     changeProperty: onChangeProperty,
@@ -17,7 +16,6 @@ const mapDispatchToProps = (disathch) => {
     onGetAllPeople,
     onToggleRandomHouse,
     formFunctions: {
-      onChangeFormValue,
       onSubmit,
     },
     itemFunctions: {
