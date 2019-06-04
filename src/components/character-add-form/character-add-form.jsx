@@ -1,141 +1,135 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Field, reduxForm } from 'redux-form';
+import { required } from 'const/validate';
 import 'components/character-add-form/character-add-form.css';
 
-const CharacterAddForm = ({
-  gender,
+const Input = ({
+  input,
   name,
-  culture,
-  playedBy,
-  onChangeFormValue,
-  characterPicture,
-  onSubmit,
+  placeholder,
+  label,
+  type,
+  meta: {
+    touched,
+    error,
+    warning,
+  },
 }) => (
+  <div className="form-group">
+    <label
+      htmlFor={name}
+    >
+      {label}
+      <input
+        {...input}
+        id={name}
+        placeholder={placeholder}
+        className="form-control"
+        type={type}
+      />
+    </label>
+    {touched
+      && ((error || warning) && (
+      <div
+        className="invalid-feedback"
+      >
+        {error || warning}
+      </div>
+      ))}
+  </div>
+);
+const Select = ({
+  input,
+  name,
+  placeholder,
+  label,
+  type,
+  value,
+  meta: {
+    touched,
+    error,
+    warning,
+  },
+}) => (
+  <div className="form-group">
+    <div
+      htmlFor={name}
+    >
+      Gender
+      <select
+        {...input}
+        value={value}
+        className="form-control"
+        component="select"
+      >
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Dragon">Dragon</option>
+      </select>
+      {touched
+        && ((error || warning) && (
+        <div
+          className="invalid-feedback"
+        >
+          {error || warning}
+        </div>
+        ))}
+    </div>
+  </div>
+);
+
+
+const CharacterAddForm = () => (
   <form className="d-flex flex-column align-content-center">
     <fieldset className="border border-success rounded">
       <legend className="text-center">Add character</legend>
       <div className="form-group d-flex flex-column align-content-center flex-wrap">
-        <div className="form-group">
-          <label
-            htmlFor="name"
-          >
-            Name
-            <input
-              name="name"
-              type="text"
-              value={name.value}
-              className="form-control"
-              id="name"
-              placeholder="Enter name"
-              onChange={onChangeFormValue}
-            />
-          </label>
-          {name.error && (
-          <div
-            className="invalid-feedback"
-          >
-            {name.error}
-          </div>
-          )}
-        </div>
-        <div className="form-group">
-          <div
-            htmlFor="gender"
-          >
-            Gender
-            <select
-              name="gender"
-              className="form-control"
-              id="gender"
-              value={gender.value}
-              onChange={onChangeFormValue}
-            >
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Dragon">Dragon</option>
-            </select>
-            {gender.error && (
-            <div
-              className="invalid-feedback"
-            >
-              {gender.error}
-            </div>
-            )}
-          </div>
-        </div>
-        <div className="form-group">
-          <label
-            htmlFor="culture"
-          >
-            Culture
-            <input
-              name="culture"
-              type="text"
-              value={culture.value}
-              className="form-control"
-              id="culture"
-              placeholder="Enter culture"
-              onChange={onChangeFormValue}
-            />
-          </label>
-          {culture.error && (
-          <div
-            className="invalid-feedback"
-          >
-            {culture.error}
-          </div>
-          )}
-        </div>
-        <div className="form-group">
-          <label
-            htmlFor="playeBby"
-          >
-            Played by
-            <input
-              name="playedBy"
-              type="text"
-              value={playedBy.value}
-              className="form-control"
-              id="playeBby"
-              placeholder="Played by:"
-              onChange={onChangeFormValue}
-            />
-          </label>
-          {playedBy.error && (
-          <div
-            className="invalid-feedback"
-          >
-            {playedBy.error}
-          </div>
-          )}
-        </div>
-        <div className="form-group">
-          <label
-            htmlFor="characterPicture"
-          >
-            Character picture
-            <input
-              name="characterPicture"
-              type="text"
-              value={characterPicture.value}
-              className="form-control"
-              id="characterPicture"
-              placeholder="Enter URl"
-              onChange={onChangeFormValue}
-            />
-          </label>
-          {characterPicture.error && (
-          <div
-            className="invalid-feedback"
-          >
-            {characterPicture.error}
-          </div>
-          )}
-        </div>
+        <Field
+          name="name"
+          component={Input}
+          type="text"
+          placeholder="Enter name"
+          label="Name"
+          validate={[required]}
+        />
+        <Field
+          name="gender"
+          component={Select}
+          type="text"
+          placeholder="Enter name"
+          label="Gender"
+          value="Male"
+          validate={[required]}
+        />
+        <Field
+          name="culture"
+          component={Input}
+          type="text"
+          placeholder="Enter culture"
+          label="Culture"
+          validate={[required]}
+        />
+        <Field
+          name="playeBby"
+          component={Input}
+          type="text"
+          placeholder="Played by:"
+          label="Played by:"
+          validate={[required]}
+        />
+        <Field
+          name="characterPicture"
+          component={Input}
+          type="text"
+          placeholder="Enter URl"
+          label="Character picture"
+          validate={[required]}
+        />
         <button
           type="button"
           className="btn btn-success"
-          onClick={onSubmit}
+          // onClick={onSubmit}
           disabled={false}
         >
           Submit
@@ -144,14 +138,4 @@ const CharacterAddForm = ({
     </fieldset>
   </form>
 );
-export default CharacterAddForm;
-
-CharacterAddForm.propTypes = {
-  gender: PropTypes.object.isRequired,
-  name: PropTypes.object.isRequired,
-  culture: PropTypes.object.isRequired,
-  playedBy: PropTypes.object.isRequired,
-  characterPicture: PropTypes.object.isRequired,
-  onChangeFormValue: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
+export default reduxForm({ form: 'characterAddForm' })(CharacterAddForm);

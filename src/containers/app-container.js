@@ -34,10 +34,6 @@ const mapDispatchToProps = (disathch) => {
     },
   };
 };
-const getStateOfForm = createSelector(
-  state => state.peopleList.addCharacterForm,
-  addCharacterForm => addCharacterForm,
-);
 const getStateOfRandomHouse = createSelector(
   state => state.showRandomHouse,
   showRandomHouse => showRandomHouse,
@@ -48,7 +44,6 @@ const getPeople = createSelector(
 );
 const mapStateToProps = state => ({
   showRandomHouse: getStateOfRandomHouse(state),
-  stateOfForm: getStateOfForm(state),
   peopleListState: getPeople(state),
 });
 

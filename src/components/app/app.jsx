@@ -10,7 +10,6 @@ import 'components/app/app.css';
 
 const App = ({
   showRandomHouse,
-  stateOfForm,
   formFunctions,
   peopleListState,
   itemFunctions,
@@ -47,7 +46,6 @@ const App = ({
           render={({ location }) => (
             <PeoplePage
               location={location}
-              stateOfForm={stateOfForm}
               formFunctions={formFunctions}
               peopleListState={peopleListState}
               itemFunctions={itemFunctions}
@@ -80,7 +78,6 @@ export default App;
 
 App.propTypes = {
   showRandomHouse: PropTypes.bool.isRequired,
-  stateOfForm: PropTypes.object.isRequired,
   formFunctions: PropTypes.object.isRequired,
   peopleListState: PropTypes.array.isRequired,
   itemFunctions: PropTypes.object.isRequired,

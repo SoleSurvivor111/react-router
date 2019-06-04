@@ -49,17 +49,6 @@ const peopleList = (state = initialState, action) => {
         addCharacterForm: addFormInitialState,
       };
     }
-    case CHANGE_FORM_VALUE:
-      return {
-        ...state,
-        addCharacterForm: {
-          ...state.addCharacterForm,
-          [action.payload.fieldName]: {
-            ...state.addCharacterForm[action.payload.fieldName],
-            value: action.payload.value,
-          },
-        },
-      };
     case DELETE_ITEM:
       return {
         ...state,
