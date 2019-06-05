@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { urlCheckExpression } from 'const';
 
 class Content extends React.Component {
   state = {
@@ -37,7 +36,7 @@ class Content extends React.Component {
         <img
           alt={name.value}
           className="person-image"
-          src={characterPicture.value.match(urlCheckExpression) || 'https://ndab.niledutch.com/NileDutch/api_imageviewer.php?contactid=520'}
+          src={characterPicture.value || 'https://ndab.niledutch.com/NileDutch/api_imageviewer.php?contactid=520'}
           title={name.value}
         />
         <div className="card-body">

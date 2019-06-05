@@ -1,20 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import {
   Field,
-  reduxForm,
-  isValid,
-  getFormValues,
 } from 'redux-form';
 import {
   required,
   url,
   length,
 } from 'redux-form-validators';
-import {
-  InitialValues,
-} from 'const';
 import Input from 'components/character-add-form/input';
 import Select from 'components/character-add-form/select';
 import 'components/character-add-form/character-add-form.css';
@@ -23,6 +16,7 @@ const CharacterAddForm = ({
   valid,
   values,
   onSubmit,
+  reset,
 }) => (
   <form className="d-flex flex-column align-content-center">
     <fieldset className="border border-success rounded">
@@ -70,7 +64,10 @@ const CharacterAddForm = ({
         <button
           type="button"
           className="btn btn-success"
-          onClick={() => onSubmit(values)}
+          onClick={() => {
+            onSubmit(values);
+            reset();
+          }}
           disabled={!valid}
         >
           Submit
@@ -79,18 +76,17 @@ const CharacterAddForm = ({
     </fieldset>
   </form>
 );
-export default reduxForm({
-  form: 'characterAddForm',
-  initialValues: InitialValues,
-})(connect(state => ({
-  values: getFormValues('characterAddForm')(state),
-  valid: isValid('characterAddForm')(state),
-}))(CharacterAddForm));
+
+export default CharacterAddForm;
 
 CharacterAddForm.propTypes = {
+  values: PropTypes.object,
   valid: PropTypes.bool,
+  onSubmit: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
 };
 
 CharacterAddForm.defaultProps = {
   valid: null,
+  values: null,
 };

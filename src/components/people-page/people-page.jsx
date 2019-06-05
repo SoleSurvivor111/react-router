@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import CharacterAddForm from 'components/character-add-form/character-add-form';
+import CharacterAddForm from 'containers/form-container';
 import ItemList from 'components/item-list';
 import ErrorIndicator from 'components/error-indicator';
 import ErrorBoundry from 'components/error-boundry';
@@ -12,12 +12,6 @@ import 'components/people-page/people-page.css';
 class PeoplePage extends Component {
   state = {
     hasError: null,
-  }
-
-
-  handlePersonSelected = (itemId) => {
-    const { history } = this.props;
-    history.push(`/people/${itemId}`);
   }
 
   setParams = ({ query = '' }) => {
@@ -34,12 +28,6 @@ class PeoplePage extends Component {
     };
   }
 
-  handleUpdateURL = (e) => {
-    const { history } = this.props;
-    const url = this.setParams({ query: e.target.value });
-    history.push(`?${url}`);
-  }
-
   getInitialValues = {
     name: '',
     gender: '',
@@ -47,6 +35,17 @@ class PeoplePage extends Component {
     playedBy: '',
     characterPicture: '',
   };
+
+  handlePersonSelected = (itemId) => {
+    const { history } = this.props;
+    history.push(`/people/${itemId}`);
+  }
+
+  handleUpdateURL = (e) => {
+    const { history } = this.props;
+    const url = this.setParams({ query: e.target.value });
+    history.push(`?${url}`);
+  }
 
   render() {
     const {

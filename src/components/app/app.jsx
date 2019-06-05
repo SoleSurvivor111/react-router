@@ -79,6 +79,7 @@ export default App;
 App.propTypes = {
   showRandomHouse: PropTypes.bool.isRequired,
   formFunctions: PropTypes.object.isRequired,
+  itemListFunctions: PropTypes.object.isRequired,
   peopleListState: PropTypes.array.isRequired,
   itemFunctions: PropTypes.object.isRequired,
   recordFunctions: PropTypes.object.isRequired,
