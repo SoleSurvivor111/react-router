@@ -13,7 +13,7 @@ import Select from 'components/character-add-form/select';
 import 'components/character-add-form/character-add-form.css';
 
 const CharacterAddForm = ({
-  valid,
+  isValid,
   values,
   onSubmit,
   reset,
@@ -68,7 +68,7 @@ const CharacterAddForm = ({
             onSubmit(values);
             reset();
           }}
-          disabled={!valid}
+          disabled={!isValid}
         >
           Submit
         </button>
@@ -81,12 +81,12 @@ export default CharacterAddForm;
 
 CharacterAddForm.propTypes = {
   values: PropTypes.object,
-  valid: PropTypes.bool,
+  isValid: PropTypes.bool,
   onSubmit: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
 };
 
 CharacterAddForm.defaultProps = {
-  valid: null,
+  isValid: null,
   values: null,
 };

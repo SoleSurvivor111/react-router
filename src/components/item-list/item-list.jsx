@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import {
+  sortableContainer,
+} from 'react-sortable-hoc';
+import arrayMove from 'array-move';
 import Item from 'components/item-list/item';
 import 'components/item-list/item-list.css';
+
+
+const SortableContainer = sortableContainer(({ items }) => (
+  <ul className="item-list list-group">
+    {items}
+  </ul>
+));
 
 export default class ItemList extends Component {
   componentDidMount() {
     const { onGetAllPeople, itemList } = this.props;
     if (!itemList.length)onGetAllPeople();
   }
+
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    const { itemList, onChangeListOrder } = this.props;
+    const newItemList = arrayMove(itemList, oldIndex, newIndex);
+    onChangeListOrder(newItemList);
+  };
 
   renderItems(arr) {
     const {
@@ -31,11 +48,11 @@ export default class ItemList extends Component {
       const lable = children(item);
       return (
         <Item
-          key={id}
-          onItemSelected={onItemSelected}
+          key={`item-${id}`}
           id={id}
           lable={lable}
           index={index}
+          onItemSelected={onItemSelected}
           {...itemFunctions}
         />
       );
@@ -48,9 +65,7 @@ export default class ItemList extends Component {
     } = this.props;
     const items = this.renderItems(itemList);
     return (
-      <ul className="item-list list-group">
-        {items}
-      </ul>
+      <SortableContainer items={items} onSortEnd={this.onSortEnd} useDragHandle />
     );
   }
 }
@@ -62,4 +77,5 @@ ItemList.propTypes = {
   onGetAllPeople: PropTypes.func.isRequired,
   checkedValues: PropTypes.func.isRequired,
   onItemSelected: PropTypes.func.isRequired,
+  onChangeListOrder: PropTypes.func.isRequired,
 };

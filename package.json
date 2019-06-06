@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "array-move": "^2.1.0",
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
     "node-uuid": "^1.4.8",
@@ -14,6 +15,7 @@
     "react-router-dom": "^5.0.0",
     "react-router-prop-types": "^1.0.4",
     "react-scripts": "2.1.8",
+    "react-sortable-hoc": "^1.9.1",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-form": "^8.2.3",

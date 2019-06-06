@@ -11,6 +11,7 @@ const mapDispatchToProps = (disathch) => {
     deleteItem: onDeleteItem,
     changeProperty: onChangeProperty,
     getAllPeople: onGetAllPeople,
+    changeListOrder: onChangeListOrder,
   } = bindActionCreators(actions, disathch);
   return {
     onGetAllPeople,
@@ -29,6 +30,7 @@ const mapDispatchToProps = (disathch) => {
     },
     itemListFunctions: {
       onGetAllPeople,
+      onChangeListOrder,
     },
   };
 };

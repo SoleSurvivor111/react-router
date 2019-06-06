@@ -13,3 +13,7 @@
 .item-list:nth-last-child(1) {
   margin-bottom: 3em;
 }
+
+.drag-handle {
+  cursor: row-resize;
+}

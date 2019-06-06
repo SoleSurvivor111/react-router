@@ -9,10 +9,12 @@ import {
 } from 'const';
 import CharacterAddForm from 'components/character-add-form/character-add-form';
 
+const mapStateToProps = state => ({
+  values: getFormValues('characterAddForm')(state),
+  isValid: isValid('characterAddForm')(state),
+});
+
 export default reduxForm({
   form: 'characterAddForm',
   initialValues: InitialValues,
-})(connect(state => ({
-  values: getFormValues('characterAddForm')(state),
-  valid: isValid('characterAddForm')(state),
-}))(CharacterAddForm));
+})(connect(mapStateToProps)(CharacterAddForm));

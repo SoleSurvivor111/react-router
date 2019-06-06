@@ -67,13 +67,13 @@ class PeoplePage extends Component {
         />
         <h2>People</h2>
         <ItemList
-          onItemSelected={this.handlePersonSelected}
           itemList={peopleListState}
           {...itemListFunctions}
           searchValue={this.getParams().query}
           checkedValues={i => [
             i.name.value.toLowerCase(), i.gender.value.toLowerCase(),
           ]}
+          onItemSelected={this.handlePersonSelected}
           itemFunctions={itemFunctions}
         >
           {i => `${i.name.value} (${i.gender.value})`}

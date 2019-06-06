@@ -21,7 +21,7 @@ throneService = new ThroneService();
   }
 
   componentWillUnmount() {
-    clearInterval(this.inteval);
+    clearInterval(this.interval);
   }
 
   onHouseLoaded = (house) => {

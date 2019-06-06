@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import debounce from 'lodash/debounce';
 import rootReducer from 'reducers';
-
 import rootSaga from 'sagas';
 import { loadState, saveState } from 'localStoreage';
 import AppContainer from 'containers/app-container';

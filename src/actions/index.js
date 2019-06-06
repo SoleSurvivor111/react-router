@@ -4,6 +4,7 @@ import {
   DELETE_ITEM,
   CHANGE_PROPERTY,
   GET_ALL_PEOPLE,
+  CHANGE_LIST_ORDER,
 } from 'const';
 
 export const toggleRandomHouse = () => ({
@@ -37,4 +38,9 @@ export const changeProperty = (e, fieldName, id) => ({
 
 export const getAllPeople = () => ({
   type: GET_ALL_PEOPLE,
+});
+
+export const changeListOrder = newItemList => ({
+  type: CHANGE_LIST_ORDER,
+  payload: { newItemList },
 });

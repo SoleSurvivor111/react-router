@@ -3,6 +3,7 @@ import {
   DELETE_ITEM,
   CHANGE_PROPERTY,
   PEOPLE_RECEIVED,
+  CHANGE_LIST_ORDER,
 } from 'const';
 import { v4 } from 'node-uuid';
 
@@ -50,6 +51,11 @@ const peopleList = (state = initialState, action) => {
           ...state.people,
           ...action.payload.people,
         ],
+      };
+    case CHANGE_LIST_ORDER:
+      return {
+        ...state,
+        people: action.payload.newItemList,
       };
     default:
       return state;
