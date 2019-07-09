@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+
 import ThroneService from 'services/throne-service';
+import { ThroneServiceProvider } from 'components/throne-service-context';
+
 import Header from 'components/header';
 import RandomHouse from 'components/random-house';
 import PeoplePage from 'components/people-page';
@@ -13,6 +16,7 @@ import {
   HouseList,
 } from 'components/got-components';
 import Row from 'components/row';
+
 import 'components/app/app.css';
 
 export default class App extends Component {
@@ -60,24 +64,26 @@ export default class App extends Component {
     );
     return (
       <div className="container">
-        <Header />
-        {randomHouse}
-        <button
-          type="button"
-          className="toggle-planet btn btn-warning btn-lg"
-          onClick={this.toggleRandomHouse}
-        >
-          Toggle Random Planet
-        </button>
+        <ThroneServiceProvider value={this.thrineService}>
+          <Header />
+          {randomHouse}
+          <button
+            type="button"
+            className="toggle-planet btn btn-warning btn-lg"
+            onClick={this.toggleRandomHouse}
+          >
+            Toggle Random Planet
+          </button>
 
-        <PersonList>
-          {({ name }) => (<span>{name}</span>)}
-        </PersonList>
+          <PersonList>
+            {({ name }) => (<span>{name}</span>)}
+          </PersonList>
 
-        <Row
-          left={personDetails}
-          right={bookDetails}
-        />
+          <Row
+            left={personDetails}
+            right={bookDetails}
+          />
+        </ThroneServiceProvider>
       </div>
     );
   }

@@ -30,9 +30,7 @@ export default class PeoplePage extends Component {
         onItemSelected={this.onPersonSelected}
         getData={this.throneService.getAllPeople}
         getPersonImage={this.throneService.getPersonImage}
-      >
-        {i => `${i.name || i.aliases[0]} (${i.gender})`}
-      </ItemList>
+      />
     );
     const personDetails = (
       <PersonDetails
