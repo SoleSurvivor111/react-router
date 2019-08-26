@@ -2,13 +2,13 @@ import React from 'react';
 import Spinner from 'components/spinner';
 import ErrorIndicator from 'components/error-indicator';
 
-const withData = (View, getData) => class extends React.Component {
+const withData = (View) => class extends React.Component {
   state = {
     data: null,
   };
 
   componentDidMount() {
-    getData()
+    this.props.getData()
       .then((data) => {
         this.setState({
           data,

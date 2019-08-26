@@ -1,27 +1,17 @@
 import React from 'react';
-import ItemDetails, { Record } from '../item-details';
+import ItemDetails, { Record } from 'components/item-details/item-details';
+import { ThroneServiceConsumer } from 'components/throne-service-context';
 import ThroneService from '../../services/throne-service';
 
 const throneService = new ThroneService();
 
 const {
-  getPerson,
-  getPersonImage,
   getBook,
   getBookImage,
   getHouse,
   getHouseImage,
 } = throneService;
 
-const PersonDetails = ({ itemId }) => {
-  return (
-    <ItemDetails
-      itemId={itemId}
-      getData={getPerson}
-      getImageUrl={getPersonImage}
-    />
-  );
-};
 const BookDetails = () => {};
 const HouseDetails = () => {};
 

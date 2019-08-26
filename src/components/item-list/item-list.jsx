@@ -9,7 +9,6 @@ const ItemList = (props) => {
   const items = data.map((item) => {
     const { id } = item;
     const lable = renderLabel(item);
-    console.log({ item });
     return (
       <li
         className="list-group-item"

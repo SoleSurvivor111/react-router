@@ -1,30 +1,25 @@
 import React from 'react';
 import ItemList from 'components/item-list';
-import ItemDetails from 'components/item-details';
-import withData from 'components/hoc-helper';
-import ThroneService from 'services/throne-service';
+import { withData, withThroneService } from 'components/hoc-helper';
 
-const throneService = new ThroneService();
-
-const {
-  getAllPeople,
-  getAllBooks,
-  getAllHouses,
-} = throneService;
 const withChildrenFunction = (Wrapped, fn) => props => <Wrapped {...props}>{fn}</Wrapped>;
 
-const PersonList = withData(withChildrenFunction(
+const mapMethodsToProps = throneService => ({
+  getData: throneService.getAllPeople,
+});
+
+const PersonList = withThroneService(withData(withChildrenFunction(
   ItemList,
   i => `${i.name || i.aliases[0]} (${i.gender})`,
-), getAllPeople);
+)), mapMethodsToProps);
 const BookList = withData(withChildrenFunction(
   ItemList,
   i => `${i.name || i.aliases[0]} (${i.gender})`,
-), getAllBooks);
+));
 const HouseList = withData(withChildrenFunction(
   ItemList,
   i => `${i.name || i.aliases[0]} (${i.gender})`,
-), getAllHouses);
+));
 
 export {
   PersonList,

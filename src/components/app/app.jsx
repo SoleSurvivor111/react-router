@@ -64,7 +64,7 @@ export default class App extends Component {
     );
     return (
       <div className="container">
-        <ThroneServiceProvider value={this.thrineService}>
+        <ThroneServiceProvider value={this.throneService}>
           <Header />
           {randomHouse}
           <button
@@ -75,9 +75,7 @@ export default class App extends Component {
             Toggle Random Planet
           </button>
 
-          <PersonList>
-            {({ name }) => (<span>{name}</span>)}
-          </PersonList>
+          <PersonList />
 
           <Row
             left={personDetails}
